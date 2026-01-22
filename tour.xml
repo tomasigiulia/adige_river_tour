@@ -129,7 +129,92 @@
         ); 
     </action>
 
-    ```
+    
+
+    <!-- POPUP con blur -->
+    <layer name="popup_blur"
+           keep="true"
+           type="container"
+           width="100%"
+           height="100%"
+           bgblur="10"
+           bgalpha="0.3"
+           bgcolor="0x000000"
+           visible="false"
+           zorder="90"
+           onclick="close_popup();"
+           />
+
+    <layer name="popup_bg"
+           keep="true"
+           type="container"
+           align="center"
+           width="80%"
+           height="70%"
+           bgcolor="0x000000"
+           bgalpha="0.85"
+           bgroundedge="10"
+           visible="false"
+           zorder="100"
+           >
+
+        <layer name="popup_title"
+               type="text"
+               align="top"
+               y="20"
+               width="90%"
+               bg="false"
+               html=""
+               css="color:white; font-family:Arial; font-size:24px; font-weight:bold; text-align:center;"
+               />
+
+        <layer name="popup_scroll"
+               type="container"
+               align="top"
+               y="70"
+               width="90%"
+               height="80%"
+               >
+            
+            <layer name="popup_text"
+                   type="text"
+                   width="100%"
+                   bg="false"
+                   html=""
+                   css="color:white; font-family:Arial; font-size:18px; line-height:1.5;"
+                   />
+        </layer>
+
+        <layer name="popup_close"
+               type="text"
+               align="topright"
+               x="20"
+               y="20"
+               bg="false"
+               html="✕"
+               css="color:white; font-size:30px; font-weight:bold; cursor:pointer;"
+               onclick="close_popup();"
+               />
+    </layer>
+
+    <action name="open_popup" scope="local" args="titlecontent, textcontent">
+        set(layer[popup_blur].visible, true);
+        set(layer[popup_bg].visible, true);
+        
+        set(layer[popup_title].html, get(titlecontent));
+        set(layer[popup_text].html, get(textcontent));
+    </action>
+
+    <action name="close_popup">
+        set(layer[popup_blur].visible, false);
+        set(layer[popup_bg].visible, false);
+    </action>
+
+    <action name="trace_yaw_pitch" scope="local">
+        trace('yaw=' + get(caller.ath) + ' pitch=' + get(caller.atv));
+    </action>
+
+
 
 ---
 
@@ -158,6 +243,16 @@ Facendo questi passaggi, le tue 3 scene (`panorama1`, `panorama2`, `panorama3`) 
 		<image>
 			<cube url="panos/panorama1.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
 		</image>
+
+		<!-- HOTSPOT nella scena -->
+    <hotspot name="info1"
+        ath="-25.91"
+        atv="24.43"
+        type="text"
+        text="ⓘ"
+        css="color:white; font-size:24px; background:#0008; padding:6px 10px; border-radius:50%; cursor:pointer;"
+        onclick="trace_yaw_pitch(); open_popup('Titolo hotspot','Questo e il testo del popup collegato all hotspot.[br][br]Funziona anche su mobile.');"
+    />
 
 	</scene>
 
@@ -189,5 +284,17 @@ Facendo questi passaggi, le tue 3 scene (`panorama1`, `panorama2`, `panorama3`) 
 
 	</scene>
 
+
+
+    <events name="debug_coords" keep="true" onclick="trace_coordinates();" />
+
+    <action name="trace_coordinates">
+    screentosphere(mouse.x, mouse.y, click_ath, click_atv);
+    
+    roundval(click_ath, 2);
+    roundval(click_atv, 2);
+
+    js( calc('console.log("Nuovo Hotspot: ath=' + click_ath + ' atv=' + click_atv + '")') );
+</action>
 
 </krpano>
