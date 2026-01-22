@@ -20,7 +20,7 @@
 	               title="true"
 	               thumbs="true"
 	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
-	               thumbs_opened="false"
+	               thumbs_opened="true"
 	               thumbs_text="false"
 	               thumbs_dragging="true"
 	               thumbs_onhoverscrolling="false"
@@ -69,6 +69,7 @@
 	<include url="skin/vtourskin_design_117round.xml"    /> 
 	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
 	
+<!--  krpano Maps  -->
 <include url="%VIEWER%/plugins/krpanomaps.xml"/>
 
     <layer name="mapbox" style="box" align="lefttop" x="10" y="10" keep="true" width="25%" height="30%">
