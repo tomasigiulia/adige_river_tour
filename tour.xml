@@ -3,7 +3,7 @@
 	<include url="skin/vtourskin.xml" />
 
 	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
-	<skin_settings maps="false"
+	<skin_settings maps="true"
 	               maps_type="openstreetmaps"
 	               maps_bing_api_key=""
 	               maps_google_api_key=""
@@ -71,7 +71,7 @@
 	
 <include url="%VIEWER%/plugins/krpanomaps.xml"/>
 
-    <layer name="mapbox" style="box" align="lefttop" x="10" y="10" keep="true">
+    <layer name="mapbox" style="box" align="lefttop" x="10" y="10" keep="true" width="25%" height="30%">
         <plugin name="krpanomaps" style="krpanomaps" 
                 lat="45.22133333" lng="11.29434167" zoom="14" 
                 tileprovider="arcgis_streetmap" 
