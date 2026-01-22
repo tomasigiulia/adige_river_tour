@@ -107,7 +107,9 @@
         plugin[krpanomaps].activatespot(get(xml.scene)); 
     </action>
 
-    <style name="box" type="container" bgcolor="0xFFFFFF" bgalpha="1" bgroundedge="5" bgshadow="0 4 8 0x000000 0.7" 
+    <style name="hotspot_info" type="image" url="hotspots/info.svg" scale="0.4" distorted="true" css="color:#00CCFF;"/>
+
+	<style name="box" type="container" bgcolor="0xFFFFFF" bgalpha="1" bgroundedge="5" bgshadow="0 4 8 0x000000 0.7" 
            width.desktop="22%" width.tablet="22%" width.mobile="240" 
            height.desktop="50%" height.tablet="50%" height.mobile="40%" 
            zorder="1"/>
@@ -248,9 +250,9 @@ Facendo questi passaggi, le tue 3 scene (`panorama1`, `panorama2`, `panorama3`) 
     <hotspot name="info1"
         ath="-25.91"
         atv="24.43"
-        type="text"
-        text="ⓘ"
-        css="color:white; font-size:24px; background:#0008; padding:6px 10px; border-radius:50%; cursor:pointer;"
+        style="hotspot_info"
+		onover="tween(scale,0.65); css(color:#FFAA00);"
+        onout="tween(scale,0.4); css(color:#00CCFF);"
         onclick="trace_yaw_pitch(); open_popup('Titolo hotspot','Questo e il testo del popup collegato all hotspot.[br][br]Funziona anche su mobile.');"
     />
 
