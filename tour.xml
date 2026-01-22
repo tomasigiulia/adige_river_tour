@@ -134,87 +134,119 @@
     
 
     <!-- POPUP con blur -->
-    <layer name="popup_blur"
-           keep="true"
-           type="container"
-           width="100%"
-           height="100%"
-           bgblur="10"
-           bgalpha="0.3"
-           bgcolor="0x000000"
-           visible="false"
-           zorder="90"
-           onclick="close_popup();"
-           />
+    <!-- POPUP con blur -->
+<layer name="popup_blur"
+       keep="true"
+       type="container"
+       width="100%"
+       height="100%"
+       bgblur="10"
+       bgalpha="0.3"
+       bgcolor="0x000000"
+       visible="false"
+       zorder="90"
+       onclick="close_popup();"
+/>
 
-    <layer name="popup_bg"
-           keep="true"
-           type="container"
-           align="center"
-           width="80%"
-           height="70%"
-           bgcolor="0x000000"
-           bgalpha="0.85"
-           bgroundedge="10"
-           visible="false"
-           zorder="100"
-           >
+<layer name="popup_bg"
+       keep="true"
+       type="container"
+       align="center"
+       width="80%"
+       height="70%"
+       bgcolor="0x000000"
+       bgalpha="0.85"
+       bgroundedge="10"
+       visible="false"
+       zorder="100"
+       >
 
-        <layer name="popup_title"
-               type="text"
+    <!-- TITOLO -->
+    <layer name="popup_title"
+           type="text"
+           align="top"
+           y="20"
+           width="90%"
+           bg="false"
+           html=""
+           css="color:white; font-family:Arial; font-size:24px; font-weight:bold; text-align:center;"
+    />
+
+    <!-- SCROLL CON IMMAGINE E TESTO -->
+    <layer name="popup_scroll"
+        type="container"
+        align="top"
+        y="70"
+        width="90%"
+        height="220"
+        bg="false"
+        overflow="auto">
+
+        <!-- IMMAGINE -->
+        <layer name="popup_image"
+               type="image"
+               keep="true"
+               url=""            
+               width="30%"
+               height="prop"
+			   maxheight="200"
                align="top"
-               y="20"
-               width="90%"
-               bg="false"
-               html=""
-               css="color:white; font-family:Arial; font-size:24px; font-weight:bold; text-align:center;"
-               />
+               y="0"
+        />
 
-        <layer name="popup_scroll"
-               type="container"
-               align="top"
-               y="70"
-               width="90%"
-               height="80%"
-               >
-            
+         <layer name="popup_text"
+             type="text"
+             keep="true"
+             width="100%"
+             html=""
+             bg="false"
+             css="color:#fff; font-family:Arial; font-size:18px; line-height:1.5; padding:10px; border-radius:8px; background:rgba(0,0,0,0.65); word-break:break-word;"
+             align="top"
+             y="0"
+         />
+            />
             <layer name="popup_text"
-                   type="text"
-                   width="100%"
-                   bg="false"
-                   html=""
-                   css="color:white; font-family:Arial; font-size:18px; line-height:1.5;"
-                   />
-        </layer>
-
-        <layer name="popup_close"
-               type="text"
-               align="topright"
-               x="20"
-               y="20"
-               bg="false"
-               html="✕"
-               css="color:white; font-size:30px; font-weight:bold; cursor:pointer;"
-               onclick="close_popup();"
-               />
+                type="text"
+                keep="true"
+                width="100%"
+                html=""
+                css="color:#222; font-family:Arial; font-size:18px; line-height:1.5; background:transparent;"
+                align="top"
+                y="220"
+            />
     </layer>
 
-    <action name="open_popup" scope="local" args="titlecontent, textcontent">
-        set(layer[popup_blur].visible, true);
-        set(layer[popup_bg].visible, true);
-        
-        set(layer[popup_title].html, get(titlecontent));
-        set(layer[popup_text].html, get(textcontent));
-    </action>
+    <!-- CHIUDI -->
+    <layer name="popup_close"
+           type="text"
+           align="topright"
+           x="20"
+           y="20"
+           bg="false"
+           html="✕"
+           css="color:white; font-size:30px; font-weight:bold; cursor:pointer;"
+           onclick="close_popup();"
+    />
+</layer>
 
-    <action name="close_popup">
-        set(layer[popup_blur].visible, false);
-        set(layer[popup_bg].visible, false);
-    </action>
+<!-- AZIONI -->
+<action name="open_popup" scope="local" args="titlecontent, textcontent, imageurl">
+    set(layer[popup_blur].visible, true);
+    set(layer[popup_bg].visible, true);
 
-    <action name="trace_yaw_pitch" scope="local">
-        trace('yaw=' + get(caller.ath) + ' pitch=' + get(caller.atv));
-    </action>
+    set(layer[popup_title].html, get(titlecontent));
+    set(layer[popup_text].html, get(textcontent));
+    set(layer[popup_image].url, get(imageurl));  <!-- Qui inserisce l'immagine -->
+</action>
+
+<action name="close_popup">
+    set(layer[popup_blur].visible, false);
+    set(layer[popup_bg].visible, false);
+</action>
+
+<action name="trace_yaw_pitch" scope="local">
+    trace('yaw=' + get(caller.ath) + ' pitch=' + get(caller.atv));
+</action>
 
 
 
@@ -248,13 +280,16 @@ Facendo questi passaggi, le tue 3 scene (`panorama1`, `panorama2`, `panorama3`) 
 
 		<!-- HOTSPOT nella scena -->
     <hotspot name="info1"
-        ath="-25.91"
-        atv="24.43"
-        style="hotspot_info"
-		onover="tween(scale,0.65); css(color:#FFAA00);"
-        onout="tween(scale,0.4); css(color:#00CCFF);"
-        onclick="trace_yaw_pitch(); open_popup('Titolo hotspot','Questo e il testo del popup collegato all hotspot.[br][br]Funziona anche su mobile.');"
-    />
+    style="hotspot_info"
+    ath="-25.91"
+    atv="24.43"
+    onover="tween(scale,0.6); css(color:#FFAA00);"
+    onout="tween(scale,0.5); css(color:#00CCFF);"
+    onclick="open_popup(
+        'Sicyos angulatus',
+        'pianta annuale erbacea, rampicante. Possiede dei fusti lianosi mediamente lunghi a maturità tra i 2 e i 5 metri, ma che quando la pianta si trova in condizioni ambientali ottimali possono anche diventare più lunghi. Grazie a cirri ramosi questi possono aggrapparsi ad altre piante o sostegni di diverso tipo. Le foglie sono lobate ed ispide, di aspetto cuoriforme, e possono arrivare ai 7 cm di lunghezza. Si tratta di una pianta monoica, ovvero con fiori maschili e femminili distinti ma compresenti sullo stesso individuo. I fiori maschili sono riuniti in racemi, quelli femminili in capolini con pochi fiori; la loro corolla è giallastra ma poco significativa',
+        'hotspots/hotspot1.jpg');"
+	/>
 
 	</scene>
 
