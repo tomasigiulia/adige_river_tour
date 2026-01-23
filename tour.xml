@@ -72,7 +72,7 @@
 <!--  krpano Maps  -->
 <include url="%VIEWER%/plugins/krpanomaps.xml"/>
 
-    <layer name="mapbox" style="box" align="lefttop" x="10" y="10" keep="true" width="25%" height="30%">
+    <layer name="mapbox" style="box" align="lefttop" x="10" y="10" keep="true">
         <plugin name="krpanomaps" style="krpanomaps" 
                 lat="45.22133333" lng="11.29434167" zoom="14" 
                 tileprovider="arcgis_streetmap" 
@@ -120,16 +120,7 @@
            expanded="false" 
            onclick="expand();"/>
 
-    <action name="expand" scope="local"> 
-        if(caller.expanded == false, 
-            caller.expanded = true; 
-            caller.backupalign = caller.parentobject.align; 
-            caller.parentobject.zorder += 100; 
-            callwith(caller.parentobject, changealign(center,center); tween(x|y|width|height, 0|0|90%|90%); ); 
-          , 
-            callwith(caller.parentobject, changealign(get(caller.backupalign),get(caller.backupalign)); tween(x|y|width|height, 10|10|25%|30%, 0.5, default, caller.expanded = false; caller.parentobject.zorder -= 100; ); ); 
-        ); 
-    </action>
+    <action name="expand" scope="local"> if(caller.expanded == false, caller.expanded = true; caller.backupalign = caller.parentobject.align; caller.backupedge = caller.parentobject.align; caller.backuppos = join('|',caller.parentobject.x, caller.parentobject.y, caller.parentobject.width, caller.parentobject.height); caller.parentobject.zorder += 100; callwith(caller.parentobject, changealign(center,center); tween(x|y|width|height, 0|0|-100|-100); ); , callwith(caller.parentobject, changealign(get(caller.backupalign),get(caller.backupedge)); tween(x|y|width|height, get(caller.backuppos), 0.5, default, caller.expanded = false; caller.parentobject.zorder -= 100; ); ); ); </action>
 
     
 
