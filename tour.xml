@@ -107,7 +107,7 @@
         plugin[krpanomaps].activatespot(get(xml.scene)); 
     </action>
 
-    <style name="hotspot_info" type="image" url="hotspots/info.svg" scale.desktop="0.32" scale.tablet="0.26" scale.mobile="0.18" distorted="true" css="color:#00CCFF;"/>
+    <style name="hotspot_info" type="image" url="hotspots/info.svg" scale.desktop="0.32" scale.tablet="0.26" scale.mobile="0.32" distorted="true" css="color:#00CCFF;"/>
 
 	<style name="box" type="container" bgcolor="0xFFFFFF" bgalpha="1" bgroundedge="5" bgshadow="0 4 8 0x000000 0.7" 
            width.desktop="22%" width.tablet="22%" width.mobile="240" 
@@ -233,7 +233,7 @@ Facendo questi passaggi, le tue 3 scene (`panorama1`, `panorama2`, `panorama3`) 
     ath="-25.91"
     atv="24.43"
     onover="set(url, 'hotspots/info_hover.svg'); tween(scale,0.6);"
-    onout="set(url, 'hotspots/info.svg'); tween(scale,0.5);"
+    onout="set(url, 'hotspots/info.svg'); if(device.mobile, tween(scale,0.32), if(device.tablet, tween(scale,0.26), tween(scale,0.32)));"
     onclick="open_popup(
         'Sicyos angulatus',
         'pianta annuale erbacea, rampicante. Possiede dei fusti lianosi mediamente lunghi a maturità tra i 2 e i 5 metri, ma che quando la pianta si trova in condizioni ambientali ottimali possono anche diventare più lunghi. Grazie a cirri ramosi questi possono aggrapparsi ad altre piante o sostegni di diverso tipo. Le foglie sono lobate ed ispide, di aspetto cuoriforme, e possono arrivare ai 7 cm di lunghezza. Si tratta di una pianta monoica, ovvero con fiori maschili e femminili distinti ma compresenti sullo stesso individuo. I fiori maschili sono riuniti in racemi, quelli femminili in capolini con pochi fiori; la loro corolla è giallastra ma poco significativa',
