@@ -122,38 +122,20 @@
 
     <action name="expand" scope="local"> if(caller.expanded == false, caller.expanded = true; caller.backupalign = caller.parentobject.align; caller.backupedge = caller.parentobject.align; caller.backuppos = join('|',caller.parentobject.x, caller.parentobject.y, caller.parentobject.width, caller.parentobject.height); caller.parentobject.zorder += 100; callwith(caller.parentobject, changealign(center,center); tween(x|y|width|height, 0|0|-100|-100); ); , callwith(caller.parentobject, changealign(get(caller.backupalign),get(caller.backupedge)); tween(x|y|width|height, get(caller.backuppos), 0.5, default, caller.expanded = false; caller.parentobject.zorder -= 100; ); ); ); </action>
 
-    
-
-    <!-- POPUP con blur -->
-    <!-- POPUP con blur -->
-<layer name="popup_blur"
-       keep="true"
-       type="container"
-       width="100%"
-       height="100%"
-       bgblur="10"
-       bgalpha="0.3"
-       bgcolor="0x000000"
-       visible="false"
-       zorder="90"
-       onclick="close_popup();"
-/>
-
-<layer name="popup_bg"
+ <layer name="popup_bg"
        keep="true"
        type="container"
        align="center"
-       width="80%"
-       height="70%"
+       width="90%"
+       maxwidth="600"
+       height="80%"
+       maxheight="500"
        bgcolor="0x000000"
        bgalpha="0.85"
        bgroundedge="10"
        visible="false"
-       zorder="100"
-       >
-
-    <!-- TITOLO -->
-    <layer name="popup_title"
+       zorder="999"
+       maskchildren="true"> <layer name="popup_title"
            type="text"
            align="top"
            y="20"
@@ -163,62 +145,33 @@
            css="color:white; font-family:Arial; font-size:24px; font-weight:bold; text-align:center;"
     />
 
-    <!-- SCROLL CON IMMAGINE E TESTO -->
-    <layer name="popup_scroll"
-        type="container"
-        align="top"
-        y="70"
-        width="90%"
-        height="220"
-        bg="false"
-        overflow="auto">
-
-        <!-- IMMAGINE -->
-        <layer name="popup_image"
-               type="image"
-               keep="true"
-               url=""            
-               width="30%"
-               height="prop"
-			   maxheight="200"
-               align="top"
-               y="0"
+        <layer name="popup_content"
+            type="html"
+            align="top"
+            y="70"
+            width="90%"
+            height="-90"
+            bg="true"
+            bgalpha="0.0"
+            capture="true"
+            css="overflow-y:auto; overflow-x:hidden; color:#fff; font-family:Arial; font-size:16px; line-height:1.5; padding:0 24px 0 0; text-align:justify;"
+            html=""
         />
 
-         <layer name="popup_text"
-             type="text"
-             keep="true"
-             width="100%"
-             html=""
-             bg="false"
-             css="color:#fff; font-family:Arial; font-size:18px; line-height:1.5; padding:10px; border-radius:8px; background:rgba(0,0,0,0.65); word-break:break-word;"
-             align="top"
-             y="0"
-         />
-            />
-            <layer name="popup_text"
-                type="text"
-                keep="true"
-                width="100%"
-                html=""
-                css="color:#222; font-family:Arial; font-size:18px; line-height:1.5; background:transparent;"
-                align="top"
-                y="220"
-            />
-    </layer>
-
-    <!-- CHIUDI -->
     <layer name="popup_close"
            type="text"
            align="topright"
-           x="20"
-           y="20"
+           x="15"
+           y="15"
            bg="false"
            html="✕"
-           css="color:white; font-size:30px; font-weight:bold; cursor:pointer;"
+           css="color:white; font-size:28px; font-weight:bold; cursor:pointer;"
            onclick="close_popup();"
+           zorder="1001"
     />
+
 </layer>
+
 
 <!-- AZIONI -->
 <action name="open_popup" scope="local" args="titlecontent, textcontent, imageurl">
@@ -226,8 +179,13 @@
     set(layer[popup_bg].visible, true);
 
     set(layer[popup_title].html, get(titlecontent));
-    set(layer[popup_text].html, get(textcontent));
-    set(layer[popup_image].url, get(imageurl));  <!-- Qui inserisce l'immagine -->
+
+    txtadd(content_html, 
+        '<img src="', get(imageurl), '" style="width:100%; max-height:180px; object-fit:contain; display:block; margin:0 auto 15px auto; border-radius:8px;" />',
+        '<div style="color:#fff; font-family:Arial; font-size:16px; line-height:1.5; text-align:justify;">', get(textcontent), '</div>'
+    );
+
+    set(layer[popup_content].html, get(content_html));
 </action>
 
 <action name="close_popup">
