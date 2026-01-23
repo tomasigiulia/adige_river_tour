@@ -1,0 +1,127 @@
+<krpano >
+
+    <!-- The sk (Slovak) language dictionary file    -->
+    <!-- UTF-8: https://www.w3schools.com/charsets/ref_utf_latin_extended_b.asp -->
+
+    <!-- skin\vtourskin.xml 
+        title, loadingtext  -->
+    <krpano title="Dovolenka na ostrove Korfu"/>
+    <skin_settings if="skin_settings.loadingtext !== ''"  loadingtext="Na&#269;&#237;tava sa..."  />
+
+    <!-- Context menu dictionary -->
+    <i18n.ctxmenu>
+        <key name="lang_change" txt="Zme&#x148; sloven&#269;inu"/>
+        <key name="skin_change" txt="Zme&#x148; celkov&#253; v&#253;zor " />
+        </i18n.ctxmenu>
+
+    <!-- Context menu customization 
+            KRPANO  - 
+            FULLSCREEN is done explicitly as item name="fs", therefore fullscreen="false"
+        -->
+    <contextmenu fullscreen="false">
+        <item name="kr" caption="O krpano prehliada&#269;i..."  onclick="openurl('http://krpano.com',_blank);"/>
+        <item name="fs" caption="Na cel&#250; obrazovku"    onclick="switch(fullscreen);" devices="fullscreensupport"/>
+        <item name="cc" caption="Riadenie pomocou my&#353;ky"   />
+        <item name="nv" caption="Norm&#225;lny poh&#318;ad"         />
+        <item name="fv" caption="Poh&#318;ad ako rybie oko"     />
+        <item name="sv" caption="Stereografick&#253; poh&#318;ad"       />
+        <item name="av" caption="Architektonick&#253; poh&#318;ad"    />
+        <item name="pv" caption="Poh&#318;ad v Panniniho projekcii"    />
+        <item name="lp" caption="Mal&#225; plan&#233;ta"                />
+        </contextmenu>
+
+
+    <!-- add tooltips to skin layout -->
+    <layer name="skin_layer" >
+        <layer name="skin_control_bar">
+            <layer name="skin_control_bar_buttons">
+                <layer name="skin_btn_prev"         tooltip="Predch&#225;dzaj&#250;ca panor&#225;ma" />
+                <layer name="skin_btn_thumbs"       tooltip="Panor&#225;my" />
+                <layer name="skin_btn_i18n"         tooltip="Vyber jazyk" />
+
+                <layer name="skin_btn_map"          tooltip="Zobraz polohu na mape" />
+                <layer name="skin_btn_navi">
+                    <layer name="skin_btn_left"     tooltip="Pozri do&#318;ava" />
+                    <layer name="skin_btn_right"    tooltip="Pozri doprava" />
+                    <layer name="skin_btn_up"       tooltip="Pozri hore" />
+                    <layer name="skin_btn_down"     tooltip="Pozri dole" />
+                    <layer name="skin_btn_in"       tooltip="Zva&#269;&#353;i" />
+                    <layer name="skin_btn_out"      tooltip="Zmen&#353;i" />
+                </layer>
+                <layer name="skin_btn_gyro"         tooltip="Gyroskope" />
+                <layer name="skin_btn_vr"           tooltip="VR a Stereo podpora " />
+                <layer name="skin_btn_fs"           tooltip="Pln&#225; obrazovka" />
+                <layer name="skin_btn_hide"         tooltip="Ukry tla&#269;&#237;tka" />
+                <layer name="skin_btn_show"         tooltip="Zobraz tla&#269;&#237;tka" >
+                    <layer name="skin_btn_show_icon"/>
+                </layer> 
+                <layer name="skin_btn_next"         tooltip="Nasleduj&#250;ca panor&#225;ma" />
+                </layer>
+            </layer>
+    </layer>
+
+    <!-- previous/next scene buttons for the hidden skin mode -->
+    <layer name="skin_btn_prev_fs" >
+        <layer name="skin_btn_prev_fs_icon" tooltip="Predch&#225;dzaj&#250;ca panor&#225;ma" />
+    </layer>
+    <layer name="skin_btn_next_fs" >
+        <layer name="skin_btn_next_fs_icon" tooltip="Nasleduj&#250;ca panor&#225;ma" />
+    </layer>
+
+    <!-- viewer/plugins/webvr.xml  (just an example)
+    <layer name="webvr_enterbutton"        html="Enter VR"         />
+    <layer name="webvr_exitbutton"         html="Exit VR"          />
+    <layer name="webvr_setupbutton"        html="VR Setup"         />
+     -->
+    <layer name="webvr_enterbutton"        html="Vstup do VR"      />
+    <layer name="webvr_exitbutton"         html="Ukon&#269;i VR"           />    
+    <layer name="webvr_setupbutton"        html="VR Nastavenie"        />    
+
+    <plugin name="WebVR" devices="html5"
+            onentervr="webvr_onentervr();i18n.change_vr_html();"
+            />
+    <layer name="webvr_setupbutton"
+           onclick="vr_setup();i18n.change_vr_txt();"
+           />
+
+    <action name="i18n.change_vr_txt">
+        trace(%0,'(', %1 %2, ')', ' layer[vr_setup_sav].html=', layer[vr_setup_sav].html, ' tick=',timertick);
+
+        set(layer[vr_setup_title].html, "MOBIL VR Nastavenie");
+        set(layer[vr_setup_dvn1].html,  "Zariadenie"        );
+        set(layer[vr_setup_siz1].html,  "Velkost obrazovky" );
+        set(layer[vr_setup_ipd1].html,  "Medziocna vzdialenost (IPD)"   );
+        set(layer[vr_setup_hmd1].html,  "VR Okuliare"       );
+        set(layer[vr_setup_hmd3].html,  "Prestav"            );
+        set(layer[vr_setup_cal].html,   "Kalibruj Gyroskop" );
+
+        set(layer[vr_setup_sav].html,   "UCHOVAJ" );
+        set(layer[vr_setup_rst].html,   "RESET"     );
+        set(layer[vr_setup_cls].html,   "ZAVRI" );
+
+        </action>
+
+    <!-- my scenes dictionary -->
+    <i18n.scene_achilleion-hof-unten>   
+        <key name="title"       txt="Z&#225;hrada v Achilleion "/>
+        </i18n.scene_achilleion-hof-unten>
+    <i18n.scene_canaldemure5>   
+        <key name="title"       txt="Kan&#225;l d&#180;Amour "/>
+        </i18n.scene_canaldemure5>  
+    <i18n.scene_kalamaki-strand>    
+        <key name="title"       txt="Pl&#225;&#382; na Kalamaki "/>
+        </i18n.scene_kalamaki-strand>
+    <i18n.scene_kassiopi-felsen>    
+        <key name="title"       txt="Skaly na Kassiopi "/>
+        </i18n.scene_kassiopi-felsen>
+    <i18n.scene_korfu-stadt-alte-festung-ganz-oben> 
+        <key name="title"       txt="Pevnos&#357; v starom meste zvrchu"/>
+        </i18n.scene_korfu-stadt-alte-festung-ganz-oben>
+    <i18n.scene_pantokrator-antenne>    
+        <key name="title"       txt="Vysiela&#269; na hore Pantokrator"/>
+        </i18n.scene_pantokrator-antenne>
+    <i18n.scene_pantokrator-kloster>    
+        <key name="title"       txt="Pantokrator kl&#225;stor"/>
+        </i18n.scene_pantokrator-kloster>
+
+</krpano>

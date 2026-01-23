@@ -1,0 +1,36 @@
+<krpano >
+    
+    <!-- The en (English) language dictionary file   -->
+
+    <!-- skin\vtourskin.xml: title, loadingtext -->
+    <skin_settings if="skin_settings.loadingtext !== ''"  loadingtext="Loading..."  />
+
+    <i18n.ctxmenu>
+        <key name="lang_change" txt="Change English"/>
+        <key name="skin_change" txt="Change skin"/>
+        </i18n.ctxmenu>
+
+    <!-- my scenes dictionary -->
+	<i18n.scene_achilleion-hof-unten>	
+		<key name="title" 		txt="Achilleion - Garden "/>
+		</i18n.scene_achilleion-hof-unten>
+	<i18n.scene_canaldemure5>	
+		<key name="title" 		txt="Canal d&#180;Amour "/>
+		</i18n.scene_canaldemure5>	
+	<i18n.scene_kalamaki-strand>	
+		<key name="title" 		txt="Kalamaki Beach"/>
+		</i18n.scene_kalamaki-strand>
+	<i18n.scene_kassiopi-felsen>	
+		<key name="title" 		txt="Kassiopi Beach "/>
+		</i18n.scene_kassiopi-felsen>
+	<i18n.scene_korfu-stadt-alte-festung-ganz-oben>	
+		<key name="title" 		txt="Corfu Old Fortress "/>
+		</i18n.scene_korfu-stadt-alte-festung-ganz-oben>
+	<i18n.scene_pantokrator-antenne>	
+		<key name="title" 		txt="Mount Pantokrator - Communication Station "/>
+		</i18n.scene_pantokrator-antenne>
+	<i18n.scene_pantokrator-kloster>	
+		<key name="title" 		txt="Mount Pantokrator - Monastery"/>
+		</i18n.scene_pantokrator-kloster>
+
+</krpano>

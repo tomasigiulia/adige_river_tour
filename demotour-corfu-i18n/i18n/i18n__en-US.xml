@@ -1,0 +1,11 @@
+<krpano >
+    
+    <!-- The en-US (US English) language dictionary file -->
+    <!-- basic (en) language dictionary    -->
+    <include url="i18n__en.xml" />
+    
+    <i18n.ctxmenu>
+        <key name="lang_change" txt="Change US English"/>
+        </i18n.ctxmenu>
+
+</krpano>
