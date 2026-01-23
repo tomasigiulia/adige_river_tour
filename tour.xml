@@ -181,7 +181,7 @@
     set(layer[popup_title].html, get(titlecontent));
 
     txtadd(content_html, 
-        '<img src="', get(imageurl), '" style="width:100%; max-height:180px; object-fit:contain; display:block; margin:0 auto 15px auto; border-radius:8px;" />',
+           '<img src="', get(imageurl), '" style="width:100%; max-height:360px; object-fit:contain; display:block; margin:0 auto 15px auto; border-radius:8px;" />',
         '<div style="color:#fff; font-family:Arial; font-size:16px; line-height:1.5; text-align:justify;">', get(textcontent), '</div>'
     );
 
