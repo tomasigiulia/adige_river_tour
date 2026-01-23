@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Cerchio con gradiente hover (azzurro-verde) e bordo bianco -->
+  <defs>
+    <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#a5ffce; stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00b894; stop-opacity:1" />
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <circle cx="32" cy="32" r="28" fill="url(#grad1)" stroke="#fff" stroke-width="4" filter="url(#shadow)"/>
+  <!-- lettera i moderna -->
+  <text x="32" y="44" font-size="32" text-anchor="middle" fill="#fff" font-family="Arial" font-weight="bold" filter="url(#shadow)">i</text>
+</svg>
