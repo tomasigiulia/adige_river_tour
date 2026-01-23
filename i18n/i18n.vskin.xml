@@ -1,0 +1,15 @@
+<krpano version="1.19-pr13">
+    <layer name="lang_selector" parent="" keep="true" type="container" align="lefttop" 
+        x="0" y="0" width="100" height="125" visible="false"
+        bgalpha="0.1" bgcapture="true"
+        onout="set(visible, 'false')"
+        >
+        <layer name="en"    html=" English"     flagurl="flags/en.png"      style="skin_lang_select|skin_glow" y="0" />
+        <layer name="it"    html=" Italiano"     flagurl="flags/it.png"      style="skin_lang_select|skin_glow" y="25" />
+    </layer>
+    <layer name="skin_layer" >
+        <layer name="skin_control_bar">
+            <layer name="skin_btn_i18n" style="skin_base|skin_glow" url="flags/%$i18n_lang%.png" align="left"  x="125"   y="0"  scale="1.0" ondown2="LanguageSelector.show_vskin();" visible="true" />
+        </layer>
+    </layer>
+</krpano>

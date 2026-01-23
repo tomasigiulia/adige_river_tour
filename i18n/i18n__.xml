@@ -1,0 +1,7 @@
+<krpano>
+    <events onnewscene="i18n_onnewscene_set(get(xml.scene));"/>
+    <action name="i18n_onnewscene_set" >
+        if(i18n.%1.key[title].txt !== null,
+            set(scene[get(xml.scene)].title, get(i18n.%1.key[title].txt));  );
+    </action>
+</krpano>
