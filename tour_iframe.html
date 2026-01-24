@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tour 360 Iframe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body { height:100%; margin:0; padding:0; background:#000; }
+        #pano { width:100vw; height:100vh; }
+    </style>
+</head>
+<body>
+<script src="tour.js"></script>
+<div id="pano"></div>
+<script>
+// Funzione per ottenere il parametro lang dalla query string
+function getQueryLang() {
+    var params = new URLSearchParams(window.location.search);
+    return params.get('lang') || 'it';
+}
+embedpano({
+    target: "pano",
+    xml: "tour.xml?lang=" + getQueryLang(),
+    passQueryParameters: "startscene,startlookat"
+});
+</script>
+</body>
+</html>

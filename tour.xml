@@ -284,6 +284,7 @@
         set(layer[popup_bg].visible, false);
         
         set(layer[popup_content].html, '');
+        reset_popup_scroll();
     </action>
 
     <action name="trace_yaw_pitch" scope="local">
