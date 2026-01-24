@@ -1,77 +1,41 @@
-<<<<<<< HEAD
-﻿<krpano version="1.23" title="Virtual Tour">
+<krpano version="1.23" title="Virtual Tour">
 
-	<include url="skin/vtourskin.xml" />
+    <include url="skin/vtourskin.xml" />
 
-	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
-	<skin_settings maps="true"
-	               maps_type="openstreetmaps"
-	               maps_bing_api_key=""
-	               maps_google_api_key=""
-	               maps_zoombuttons="false"
-	               maps_loadonfirstuse="true"
-	               gyro="true"
-	               gyro_keeplookingdirection="false"
-	               webvr="false"
-	               webvr_keeplookingdirection="true"
-	               webvr_prev_next_hotspots="true"
-	               autotour="false"
-	               littleplanetintro="false"
-	               followmousecontrol="false"
-	               title="true"
-	               thumbs="true"
-	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
-	               thumbs_opened="true"
-	               thumbs_text="false"
-	               thumbs_dragging="true"
-	               thumbs_onhoverscrolling="false"
-	               thumbs_scrollbuttons="false"
-	               thumbs_scrollindicator="false"
-	               thumbs_loop="false"
-	               tooltips_buttons="false"
-	               tooltips_thumbs="false"
-	               tooltips_hotspots="false"
-	               tooltips_mapspots="false"
-	               deeplinking="false"
-	               loadscene_flags="MERGE"
-	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
-	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
-	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
-	               loadingtext=""
-	               layout_width="100%"
-	               layout_maxwidth="814"
-	               controlbar_width="-24"
-	               controlbar_height="40"
-	               controlbar_offset="20"
-	               controlbar_offset_closed="-40"
-	               controlbar_overlap.no-fractionalscaling="10"
-	               controlbar_overlap.fractionalscaling="0"
-	               design_skin_images="vtourskin.png"
-	               design_bgcolor="0x2D3E50"
-	               design_bgalpha="0.8"
-	               design_bgborder="0"
-	               design_bgroundedge="1"
-	               design_bgshadow="0 4 10 0x000000 0.3"
-	               design_thumbborder_bgborder="3 0xFFFFFF 1.0"
-	               design_thumbborder_padding="2"
-	               design_thumbborder_bgroundedge="0"
-	               design_text_css="color:#FFFFFF; font-family:Arial;"
-	               design_text_shadow="1"
-	               />
+    <skin_settings maps="true"
+                   maps_type="openstreetmaps"
+                   maps_zoombuttons="false"
+                   maps_loadonfirstuse="true"
+                   gyro="true"
+                   webvr="false"
+                   thumbs="true"
+                   thumbs_opened="true"
+                   tooltips_buttons="false"
+                   tooltips_thumbs="false"
+                   tooltips_hotspots="false"
+                   deeplinking="false"
+                   loadscene_flags="MERGE"
+                   loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+                   loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+                   loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+                   layout_width="100%"
+                   layout_maxwidth="814"
+                   controlbar_width="-24"
+                   controlbar_height="40"
+                   controlbar_offset="20"
+                   design_skin_images="vtourskin.png"
+                   design_bgcolor="0x2D3E50"
+                   design_bgalpha="0.8"
+                   design_bgborder="0"
+                   design_bgroundedge="1"
+                   design_bgshadow="0 4 10 0x000000 0.3"
+                   design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+                   design_text_css="color:#FFFFFF; font-family:Arial;"
+                   design_text_shadow="1"
+                   />
 
-	<!--
-	    For an alternative skin design either change the <skin_settings> values 
-	    from above or optionally include one of the predefined designs from below.
-	-->
-	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
-	<!--<include url="skin/vtourskin_design_glass.xml"       /> -->
-	<!--<include url="skin/vtourskin_design_ultra_light.xml" /> -->
-	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
-	<include url="skin/vtourskin_design_117round.xml"    /> 
-	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
-	
-<!--  krpano Maps  -->
-<include url="%VIEWER%/plugins/krpanomaps.xml"/>
+    <include url="skin/vtourskin_design_117round.xml" /> 
+    <include url="%VIEWER%/plugins/krpanomaps.xml"/>
 
     <layer name="mapbox" style="box" align="lefttop" x="10" y="10" keep="true">
         <plugin name="krpanomaps" style="krpanomaps" 
@@ -93,298 +57,9 @@
             activeurl="%CURRENTXML%/skin/vtourskin_mapspotactive.png", 
             edge="bottom", x=0, y=0, scale=0.5 
         ); 
-        
         forall(scene, s, 
             caller.addspot(get(s.name), get(s.lat), get(s.lng), get(s.heading), calc(xml.scene == s.name), calc('loadscene('+s.name+',null,MERGE,BLEND(0.5));')); 
         ); 
-        
-        caller.zoomtospotsextent();
-    </action>
-
-    <events onnewscene="scene_activate_spot()"/>
-    
-    <action name="scene_activate_spot"> 
-        plugin[krpanomaps].pantospot(get(xml.scene)); 
-        plugin[krpanomaps].activatespot(get(xml.scene)); 
-    </action>
-
-    <style name="hotspot_info" type="image" url="hotspots/info.svg" scale.desktop="0.32" scale.tablet="0.26" scale.mobile="0.32" distorted="true" css="color:#00CCFF;"/>
-
-	<style name="box" type="container" bgcolor="0xFFFFFF" bgalpha="1" bgroundedge="5" bgshadow="0 4 8 0x000000 0.7" 
-           width.desktop="22%" width.tablet="22%" width.mobile="240" 
-           height.desktop="50%" height.tablet="50%" height.mobile="40%" 
-           zorder="1"/>
-
-    <style name="expandbutton" type="text" align="righttop" x="30" y="30" width="28" height="28" textalign="center" edge="center" bgcolor="0xFFFFFF" bgalpha="1" bgborder="1 0xFFFFFF 0.5" bgroundedge="1" bgshadow="0 1 3 0x000000 1.0" 
-           text="[svg style='display:block;' width='100%' height='100%' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'][path fill='none' stroke='#333' stroke-width='1' d='M 2 2 H 6 2 H 2 V 6 M 14 2 H 18 V 6 M 14 18 H 18 V 14 M 6 18 H 2 V 14'/][/svg]" 
-           css="font-size:14px; font-weight:bold;" 
-           expanded="false" 
-           onclick="expand();"/>
-
-    <action name="expand" scope="local"> if(caller.expanded == false, caller.expanded = true; caller.backupalign = caller.parentobject.align; caller.backupedge = caller.parentobject.align; caller.backuppos = join('|',caller.parentobject.x, caller.parentobject.y, caller.parentobject.width, caller.parentobject.height); caller.parentobject.zorder += 100; callwith(caller.parentobject, changealign(center,center); tween(x|y|width|height, 0|0|-100|-100); ); , callwith(caller.parentobject, changealign(get(caller.backupalign),get(caller.backupedge)); tween(x|y|width|height, get(caller.backuppos), 0.5, default, caller.expanded = false; caller.parentobject.zorder -= 100; ); ); ); </action>
-
- <layer name="popup_bg"
-       keep="true"
-       type="container"
-       align="center"
-       width="90%"
-       maxwidth="600"
-       height="80%"
-       maxheight="500"
-       bgcolor="0x000000"
-       bgalpha="0.85"
-       bgroundedge="10"
-       visible="false"
-       zorder="999"
-       maskchildren="true"> <layer name="popup_title"
-           type="text"
-           align="top"
-           y="20"
-           width="90%"
-           bg="false"
-           html=""
-           css="color:white; font-family:Arial; font-size:24px; font-weight:bold; text-align:center;"
-    />
-
-        <layer name="popup_content"
-            type="html"
-            align="top"
-            y="70"
-            width="90%"
-            height="-90"
-            bg="true"
-            bgalpha="0.0"
-            capture="true"
-            css="overflow-y:auto; overflow-x:hidden; color:#fff; font-family:Arial; font-size:16px; line-height:1.5; padding:0 24px 0 0; text-align:justify;"
-            html=""
-        />
-
-    <layer name="popup_close"
-           type="text"
-           align="topright"
-           x="15"
-           y="15"
-           bg="false"
-           html="✕"
-           css="color:white; font-size:28px; font-weight:bold; cursor:pointer;"
-           onclick="close_popup();"
-           zorder="1001"
-    />
-
-</layer>
-
-
-<!-- AZIONI -->
-<action name="open_popup" scope="local" args="titlecontent, textcontent, imageurl">
-    set(layer[popup_blur].visible, true);
-    set(layer[popup_bg].visible, true);
-
-    set(layer[popup_title].html, get(titlecontent));
-
-    txtadd(content_html, 
-           '<img src="', get(imageurl), '" style="width:100%; max-height:360px; object-fit:contain; display:block; margin:0 auto 15px auto; border-radius:8px;" />',
-        '<div style="color:#fff; font-family:Arial; font-size:16px; line-height:1.5; text-align:justify;">', get(textcontent), '</div>'
-    );
-
-    set(layer[popup_content].html, get(content_html));
-</action>
-
-<action name="close_popup">
-    set(layer[popup_blur].visible, false);
-    set(layer[popup_bg].visible, false);
-</action>
-
-<action name="trace_yaw_pitch" scope="local">
-    trace('yaw=' + get(caller.ath) + ' pitch=' + get(caller.atv));
-</action>
-
-
-
----
-
-### 3. Attenzione alle immagini (Importante!)
-
-Nel codice originale che mi hai mandato prima, le icone dei punti mappa si chiamavano `mapspot-ball.svg`.
-Nel codice che ti ho appena dato (punto 2), ho modificato la riga `set(caller.spotstyle[DEFAULT]...` per usare le icone standard della skin (`vtourskin_mapspot.png`), così dovrebbe funzionare subito senza errori.
-
-Se però vedi dei **quadratini neri o errori** sulla mappa al posto dei punti, significa che mancano le immagini. Assicurati che nella cartella `skin` del tuo progetto ci siano i file:
-* `vtourskin_mapspot.png`
-* `vtourskin_mapspotactive.png`
-
-(Solitamente ci sono di default).
-
-### Risultato
-Facendo questi passaggi, le tue 3 scene (`panorama1`, `panorama2`, `panorama3`) verranno lette automaticamente dal nuovo codice, verranno prese le coordinate GPS che hai già inserito (`lat="..." lng="..."`) e verranno disegnati i punti sulla mappa di ArcGIS in alto a sinistra.
-	
-	<scene name="scene_panorama1" title="panorama1" onstart="" thumburl="panos/panorama1.tiles/thumb.jpg" lat="45.22133333" lng="11.29434167" alt="34.06" heading="0.0">
-		
-		<control bouncinglimits="calc:image.cube ? true : false" />
-
-		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-
-		<preview url="panos/panorama1.tiles/preview.jpg" />
-
-		<image>
-			<cube url="panos/panorama1.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
-		</image>
-
-		<!-- HOTSPOT nella scena -->
-    <hotspot name="info1"
-    style="hotspot_info"
-    ath="-25.91"
-    atv="24.43"
-    onover="set(url, 'hotspots/info_hover.svg'); tween(scale,0.6);"
-    onout="set(url, 'hotspots/info.svg'); if(device.mobile, tween(scale,0.32), if(device.tablet, tween(scale,0.26), tween(scale,0.32)));"
-    onclick="open_popup(
-        'Sicyos angulatus',
-        'pianta annuale erbacea, rampicante. Possiede dei fusti lianosi mediamente lunghi a maturità tra i 2 e i 5 metri, ma che quando la pianta si trova in condizioni ambientali ottimali possono anche diventare più lunghi. Grazie a cirri ramosi questi possono aggrapparsi ad altre piante o sostegni di diverso tipo. Le foglie sono lobate ed ispide, di aspetto cuoriforme, e possono arrivare ai 7 cm di lunghezza. Si tratta di una pianta monoica, ovvero con fiori maschili e femminili distinti ma compresenti sullo stesso individuo. I fiori maschili sono riuniti in racemi, quelli femminili in capolini con pochi fiori; la loro corolla è giallastra ma poco significativa',
-        'hotspots/hotspot1.jpg');"
-	/>
-
-	</scene>
-
-	<scene name="scene_panorama2" title="panorama2" onstart="" thumburl="panos/panorama2.tiles/thumb.jpg" lat="45.22085556" lng="11.29424722" alt="48.90" heading="0.0">
-		
-		<control bouncinglimits="calc:image.cube ? true : false" />
-
-		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-
-		<preview url="panos/panorama2.tiles/preview.jpg" />
-
-		<image>
-			<cube url="panos/panorama2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
-		</image>
-
-	</scene>
-
-	<scene name="scene_panorama3" title="panorama3" onstart="" thumburl="panos/panorama3.tiles/thumb.jpg" lat="45.14435556" lng="12.30092500" alt="7.85" heading="0.0">
-		
-		<control bouncinglimits="calc:image.cube ? true : false" />
-
-		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-
-		<preview url="panos/panorama3.tiles/preview.jpg" />
-
-		<image>
-			<cube url="panos/panorama3.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
-		</image>
-
-	</scene>
-
-
-
-    <events name="debug_coords" keep="true" onclick="trace_coordinates();" />
-
-    <action name="trace_coordinates">
-    screentosphere(mouse.x, mouse.y, click_ath, click_atv);
-    
-    roundval(click_ath, 2);
-    roundval(click_atv, 2);
-
-    js( calc('console.log("Nuovo Hotspot: ath=' + click_ath + ' atv=' + click_atv + '")') );
-</action>
-
-</krpano>
-=======
-﻿<krpano version="1.23" title="Virtual Tour">
-
-	<include url="skin/vtourskin.xml" />
-
-	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
-	<skin_settings maps="true"
-	               maps_type="openstreetmaps"
-	               maps_bing_api_key=""
-	               maps_google_api_key=""
-	               maps_zoombuttons="false"
-	               maps_loadonfirstuse="true"
-	               gyro="true"
-	               gyro_keeplookingdirection="false"
-	               webvr="false"
-	               webvr_keeplookingdirection="true"
-	               webvr_prev_next_hotspots="true"
-	               autotour="false"
-	               littleplanetintro="false"
-	               followmousecontrol="false"
-	               title="true"
-	               thumbs="true"
-	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
-	               thumbs_opened="true"
-	               thumbs_text="false"
-	               thumbs_dragging="true"
-	               thumbs_onhoverscrolling="false"
-	               thumbs_scrollbuttons="false"
-	               thumbs_scrollindicator="false"
-	               thumbs_loop="false"
-	               tooltips_buttons="false"
-	               tooltips_thumbs="false"
-	               tooltips_hotspots="false"
-	               tooltips_mapspots="false"
-	               deeplinking="false"
-	               loadscene_flags="MERGE"
-	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
-	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
-	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
-	               loadingtext=""
-	               layout_width="100%"
-	               layout_maxwidth="814"
-	               controlbar_width="-24"
-	               controlbar_height="40"
-	               controlbar_offset="20"
-	               controlbar_offset_closed="-40"
-	               controlbar_overlap.no-fractionalscaling="10"
-	               controlbar_overlap.fractionalscaling="0"
-	               design_skin_images="vtourskin.png"
-	               design_bgcolor="0x2D3E50"
-	               design_bgalpha="0.8"
-	               design_bgborder="0"
-	               design_bgroundedge="1"
-	               design_bgshadow="0 4 10 0x000000 0.3"
-	               design_thumbborder_bgborder="3 0xFFFFFF 1.0"
-	               design_thumbborder_padding="2"
-	               design_thumbborder_bgroundedge="0"
-	               design_text_css="color:#FFFFFF; font-family:Arial;"
-	               design_text_shadow="1"
-	               />
-
-	<!--
-	    For an alternative skin design either change the <skin_settings> values 
-	    from above or optionally include one of the predefined designs from below.
-	-->
-	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
-	<!--<include url="skin/vtourskin_design_glass.xml"       /> -->
-	<!--<include url="skin/vtourskin_design_ultra_light.xml" /> -->
-	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
-	<include url="skin/vtourskin_design_117round.xml"    /> 
-	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
-	
-<!--  krpano Maps  -->
-<include url="%VIEWER%/plugins/krpanomaps.xml"/>
-
-    <layer name="mapbox" style="box" align="lefttop" x="10" y="10" keep="true">
-        <plugin name="krpanomaps" style="krpanomaps" 
-                lat="45.22133333" lng="11.29434167" zoom="14" 
-                tileprovider="arcgis_streetmap" 
-                controls="zoom|zoomarea|location|maptype" 
-                align="center" width="-10" height="-10" 
-                bgborder="1 0xAAAAAA 1" 
-                onmapready="add_scene_spots();">
-            <radar visible="true" size="100" alpha="0.33" fillcolor="0xFFFFFF" fillalpha="1.0" linecolor="0x00FF00" linealpha="0.5" linewidth="0.5" dragable="true" headingoffset="0"/>
-        </plugin>
-        <layer style="expandbutton"/>
-    </layer>
-
-    <action name="add_scene_spots" scope="local">
-        set(caller.spotstyle[DEFAULT], 
-            url="%CURRENTXML%/skin/vtourskin_mapspot.png", 
-            overurl="%CURRENTXML%/skin/vtourskin_mapspot.png", 
-            activeurl="%CURRENTXML%/skin/vtourskin_mapspotactive.png", 
-            edge="bottom", x=0, y=0, scale=0.5 
-        ); 
-        
-        forall(scene, s, 
-            caller.addspot(get(s.name), get(s.lat), get(s.lng), get(s.heading), calc(xml.scene == s.name), calc('loadscene('+s.name+',null,MERGE,BLEND(0.5));')); 
-        ); 
-        
         caller.zoomtospotsextent();
     </action>
 
@@ -397,7 +72,7 @@ Facendo questi passaggi, le tue 3 scene (`panorama1`, `panorama2`, `panorama3`) 
 
     <style name="hotspot_info" type="image" url="hotspots/info.svg" scale.desktop="0.32" scale.tablet="0.4" scale.mobile="0.5" distorted="true" css="color:#00CCFF;"/>
 
-	<style name="box" type="container" bgcolor="0xFFFFFF" bgalpha="1" bgroundedge="5" bgshadow="0 4 8 0x000000 0.7" 
+    <style name="box" type="container" bgcolor="0xFFFFFF" bgalpha="1" bgroundedge="5" bgshadow="0 4 8 0x000000 0.7" 
            width.desktop="22%" width.tablet="22%" width.mobile="240" 
            height.desktop="50%" height.tablet="50%" height.mobile="40%" 
            zorder="1"/>
@@ -408,30 +83,45 @@ Facendo questi passaggi, le tue 3 scene (`panorama1`, `panorama2`, `panorama3`) 
            expanded="false" 
            onclick="expand();"/>
 
-    <action name="expand" scope="local"> if(caller.expanded == false, caller.expanded = true; caller.backupalign = caller.parentobject.align; caller.backupedge = caller.parentobject.align; caller.backuppos = join('|',caller.parentobject.x, caller.parentobject.y, caller.parentobject.width, caller.parentobject.height); caller.parentobject.zorder += 100; callwith(caller.parentobject, changealign(center,center); tween(x|y|width|height, 0|0|-100|-100); ); , callwith(caller.parentobject, changealign(get(caller.backupalign),get(caller.backupedge)); tween(x|y|width|height, get(caller.backuppos), 0.5, default, caller.expanded = false; caller.parentobject.zorder -= 100; ); ); ); </action>
+    <action name="expand" scope="local"> if(caller.expanded == false, caller.expanded = true; caller.backupalign = caller.parentobject.align; caller.backupedge = caller.parentobject.edge; caller.backuppos = join('|',caller.parentobject.x, caller.parentobject.y, caller.parentobject.width, caller.parentobject.height); caller.parentobject.zorder += 100; callwith(caller.parentobject, changealign(center,center); tween(x|y|width|height, 0|0|-100|-100); ); , callwith(caller.parentobject, changealign(get(caller.backupalign),get(caller.backupedge)); tween(x|y|width|height, get(caller.backuppos), 0.5, default, caller.expanded = false; caller.parentobject.zorder -= 100; ); ); ); </action>
 
- <layer name="popup_bg"
-       keep="true"
-       type="container"
-       align="center"
-       width="90%"
-       maxwidth="600"
-       height="80%"
-       maxheight="500"
-       bgcolor="0x000000"
-       bgalpha="0.85"
-       bgroundedge="10"
-       visible="false"
-       zorder="999"
-       maskchildren="true"> <layer name="popup_title"
-           type="text"
-           align="top"
-           y="20"
+<layer name="popup_blur"
+           keep="true"
+           type="container"
+           zorder="998"
+           width="100%" height="100%"
+           bgcolor="0x000000" bgalpha="0.3"
+           bgblur="10"
+           visible="false"
+           onclick="close_popup();"
+           cursor="pointer"
+           />
+
+
+    <layer name="popup_bg"
+           keep="true"
+           type="container"
+           align="center"
            width="90%"
-           bg="false"
-           html=""
-           css="color:white; font-family:Arial; font-size:24px; font-weight:bold; text-align:center;"
-    />
+           maxwidth="600"
+           height="80%"
+           maxheight="500"
+           bgcolor="0x000000"
+           bgalpha="0.85"
+           bgroundedge="10"
+           visible="false"
+           zorder="999"
+           maskchildren="true"> 
+           
+        <layer name="popup_title"
+               type="text"
+               align="top"
+               y="20"
+               width="90%"
+               bg="false"
+               html=""
+               css="color:white; font-family:Arial; font-size:24px; font-weight:bold; text-align:center;"
+        />
 
         <layer name="popup_content"
             type="html"
@@ -442,134 +132,119 @@ Facendo questi passaggi, le tue 3 scene (`panorama1`, `panorama2`, `panorama3`) 
             bg="true"
             bgalpha="0.0"
             capture="true"
-            css="overflow-y:auto; overflow-x:hidden; color:#fff; font-family:Arial; font-size:16px; line-height:1.5; padding:0 24px 0 0; text-align:justify;"
+            css="overflow-y:auto; overflow-x:hidden; color:#fff; font-family:Arial; font-size:16px; line-height:1.5; padding:0 24px 0 0; text-align:justify; scroll-behavior:auto;"
             html=""
         />
 
-    <layer name="popup_close"
-           type="text"
-           align="topright"
-           x="15"
-           y="15"
-           bg="false"
-           html="✕"
-           css="color:white; font-size:28px; font-weight:bold; cursor:pointer;"
-           onclick="close_popup();"
-           zorder="1001"
-    />
+        <layer name="popup_close"
+               type="text"
+               align="topright"
+               x="15"
+               y="15"
+               bg="false"
+               html="✕"
+               css="color:white; font-size:28px; font-weight:bold; cursor:pointer;"
+               onclick="close_popup();"
+               zorder="1001"
+        />
 
-</layer>
-
-
-<!-- AZIONI -->
-<action name="open_popup" scope="local" args="titlecontent, textcontent, imageurl">
-    set(layer[popup_blur].visible, true);
-    set(layer[popup_bg].visible, true);
-
-    set(layer[popup_title].html, get(titlecontent));
-
-    txtadd(content_html, 
-           '<img src="', get(imageurl), '" style="width:100%; max-height:360px; object-fit:contain; display:block; margin:0 auto 15px auto; border-radius:8px;" />',
-        '<div style="color:#fff; font-family:Arial; font-size:16px; line-height:1.5; text-align:justify;">', get(textcontent), '</div>'
-    );
-
-    set(layer[popup_content].html, get(content_html));
-</action>
-
-<action name="close_popup">
-    set(layer[popup_blur].visible, false);
-    set(layer[popup_bg].visible, false);
-</action>
-
-<action name="trace_yaw_pitch" scope="local">
-    trace('yaw=' + get(caller.ath) + ' pitch=' + get(caller.atv));
-</action>
+    </layer>
 
 
+    <action name="reset_popup_scroll" type="Javascript"><![CDATA[
+        var layer = krpano.get("layer[popup_content]");
+        if(layer && layer.sprite) {
+            // Forza lo scroll a zero usando due metodi standard
+            layer.sprite.scrollTop = 0;
+            if(layer.sprite.scrollTo) layer.sprite.scrollTo(0,0);
+            
+            // Ritenta dopo che il browser ha ridisegnato (utile per immagini lente)
+            setTimeout(function(){
+                if(layer.sprite) {
+                    layer.sprite.scrollTop = 0;
+                    if(layer.sprite.scrollTo) layer.sprite.scrollTo(0,0);
+                }
+            }, 100);
+            
+            setTimeout(function(){
+                if(layer.sprite) layer.sprite.scrollTop = 0;
+            }, 300);
+        }
+    ]]></action>
 
----
+    <action name="open_popup" scope="local" args="titlecontent, textcontent, imageurl">
+        set(layer[popup_blur].visible, true);
+        set(layer[popup_bg].visible, true);
 
-### 3. Attenzione alle immagini (Importante!)
+        set(layer[popup_title].html, get(titlecontent));
 
-Nel codice originale che mi hai mandato prima, le icone dei punti mappa si chiamavano `mapspot-ball.svg`.
-Nel codice che ti ho appena dato (punto 2), ho modificato la riga `set(caller.spotstyle[DEFAULT]...` per usare le icone standard della skin (`vtourskin_mapspot.png`), così dovrebbe funzionare subito senza errori.
+        txtadd(content_html, 
+               '<img src="', get(imageurl), '" style="width:100%; max-height:360px; object-fit:contain; display:block; margin:0 auto 15px auto; border-radius:8px;" />',
+            '<div style="color:#fff; font-family:Arial; font-size:16px; line-height:1.5; text-align:justify;">', get(textcontent), '</div>'
+        );
 
-Se però vedi dei **quadratini neri o errori** sulla mappa al posto dei punti, significa che mancano le immagini. Assicurati che nella cartella `skin` del tuo progetto ci siano i file:
-* `vtourskin_mapspot.png`
-* `vtourskin_mapspotactive.png`
+        set(layer[popup_content].html, get(content_html));
+        
+        reset_popup_scroll();
+    </action>
 
-(Solitamente ci sono di default).
+    <action name="close_popup">
+        set(layer[popup_blur].visible, false);
+        set(layer[popup_bg].visible, false);
+        
+        set(layer[popup_content].html, '');
+    </action>
 
-### Risultato
-Facendo questi passaggi, le tue 3 scene (`panorama1`, `panorama2`, `panorama3`) verranno lette automaticamente dal nuovo codice, verranno prese le coordinate GPS che hai già inserito (`lat="..." lng="..."`) e verranno disegnati i punti sulla mappa di ArcGIS in alto a sinistra.
-	
-	<scene name="scene_panorama1" title="panorama1" onstart="" thumburl="panos/panorama1.tiles/thumb.jpg" lat="45.22133333" lng="11.29434167" alt="34.06" heading="0.0">
-		
-		<control bouncinglimits="calc:image.cube ? true : false" />
-
-		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-
-		<preview url="panos/panorama1.tiles/preview.jpg" />
-
-		<image>
-			<cube url="panos/panorama1.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
-		</image>
-
-		<!-- HOTSPOT nella scena -->
-    <hotspot name="info1"
-    style="hotspot_info"
-    ath="-25.91"
-    atv="24.43"
-    onover="set(url, 'hotspots/info_hover.svg'); if(device.mobile, tween(scale,0.75); , if(device.tablet, tween(scale,0.6); , tween(scale,0.48); ));"
-    onout="set(url, 'hotspots/info.svg'); if(device.mobile, tween(scale,0.5); , if(device.tablet, tween(scale,0.4); , tween(scale,0.32); ));"
-    onclick="open_popup(
-        'Sicyos angulatus',
-        'pianta annuale erbacea, rampicante. Possiede dei fusti lianosi mediamente lunghi a maturità tra i 2 e i 5 metri, ma che quando la pianta si trova in condizioni ambientali ottimali possono anche diventare più lunghi. Grazie a cirri ramosi questi possono aggrapparsi ad altre piante o sostegni di diverso tipo. Le foglie sono lobate ed ispide, di aspetto cuoriforme, e possono arrivare ai 7 cm di lunghezza. Si tratta di una pianta monoica, ovvero con fiori maschili e femminili distinti ma compresenti sullo stesso individuo. I fiori maschili sono riuniti in racemi, quelli femminili in capolini con pochi fiori; la loro corolla è giallastra ma poco significativa',
-        'hotspots/hotspot1.jpg');"
-	/>
-
-	</scene>
-
-	<scene name="scene_panorama2" title="panorama2" onstart="" thumburl="panos/panorama2.tiles/thumb.jpg" lat="45.22085556" lng="11.29424722" alt="48.90" heading="0.0">
-		
-		<control bouncinglimits="calc:image.cube ? true : false" />
-
-		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-
-		<preview url="panos/panorama2.tiles/preview.jpg" />
-
-		<image>
-			<cube url="panos/panorama2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
-		</image>
-
-	</scene>
-
-	<scene name="scene_panorama3" title="panorama3" onstart="" thumburl="panos/panorama3.tiles/thumb.jpg" lat="45.14435556" lng="12.30092500" alt="7.85" heading="0.0">
-		
-		<control bouncinglimits="calc:image.cube ? true : false" />
-
-		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-
-		<preview url="panos/panorama3.tiles/preview.jpg" />
-
-		<image>
-			<cube url="panos/panorama3.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
-		</image>
-
-	</scene>
+    <action name="trace_yaw_pitch" scope="local">
+        trace('yaw=' + get(caller.ath) + ' pitch=' + get(caller.atv));
+    </action>
 
 
+    <scene name="scene_panorama1" title="panorama1" onstart="" thumburl="panos/panorama1.tiles/thumb.jpg" lat="45.22133333" lng="11.29434167" alt="34.06" heading="0.0">
+        <control bouncinglimits="calc:image.cube ? true : false" />
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+        <preview url="panos/panorama1.tiles/preview.jpg" />
+        <image>
+            <cube url="panos/panorama1.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
+        </image>
+
+        <hotspot name="info1"
+        style="hotspot_info"
+        ath="-25.91"
+        atv="24.43"
+        onover="set(url, 'hotspots/info_hover.svg'); if(device.mobile, tween(scale,0.75); , if(device.tablet, tween(scale,0.6); , tween(scale,0.48); ));"
+        onout="set(url, 'hotspots/info.svg'); if(device.mobile, tween(scale,0.5); , if(device.tablet, tween(scale,0.4); , tween(scale,0.32); ));"
+        onclick="open_popup(
+            'Sicyos angulatus',
+            'pianta annuale erbacea, rampicante. Possiede dei fusti lianosi mediamente lunghi a maturità tra i 2 e i 5 metri, ma che quando la pianta si trova in condizioni ambientali ottimali possono anche diventare più lunghi. Grazie a cirri ramosi questi possono aggrapparsi ad altre piante o sostegni di diverso tipo. Le foglie sono lobate ed ispide, di aspetto cuoriforme, e possono arrivare ai 7 cm di lunghezza. Si tratta di una pianta monoica, ovvero con fiori maschili e femminili distinti ma compresenti sullo stesso individuo. I fiori maschili sono riuniti in racemi, quelli femminili in capolini con pochi fiori; la loro corolla è giallastra ma poco significativa',
+            'hotspots/hotspot1.jpg');"
+        />
+    </scene>
+
+    <scene name="scene_panorama2" title="panorama2" onstart="" thumburl="panos/panorama2.tiles/thumb.jpg" lat="45.22085556" lng="11.29424722" alt="48.90" heading="0.0">
+        <control bouncinglimits="calc:image.cube ? true : false" />
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+        <preview url="panos/panorama2.tiles/preview.jpg" />
+        <image>
+            <cube url="panos/panorama2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
+        </image>
+    </scene>
+
+    <scene name="scene_panorama3" title="panorama3" onstart="" thumburl="panos/panorama3.tiles/thumb.jpg" lat="45.14435556" lng="12.30092500" alt="7.85" heading="0.0">
+        <control bouncinglimits="calc:image.cube ? true : false" />
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+        <preview url="panos/panorama3.tiles/preview.jpg" />
+        <image>
+            <cube url="panos/panorama3.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
+        </image>
+    </scene>
 
     <events name="debug_coords" keep="true" onclick="trace_coordinates();" />
-
     <action name="trace_coordinates">
-    screentosphere(mouse.x, mouse.y, click_ath, click_atv);
-    
-    roundval(click_ath, 2);
-    roundval(click_atv, 2);
-
-    js( calc('console.log("Nuovo Hotspot: ath=' + click_ath + ' atv=' + click_atv + '")') );
-</action>
+        screentosphere(mouse.x, mouse.y, click_ath, click_atv);
+        roundval(click_ath, 2);
+        roundval(click_atv, 2);
+        js( calc('console.log("Nuovo Hotspot: ath=' + click_ath + ' atv=' + click_atv + '")') );
+    </action>
 
 </krpano>
->>>>>>> dd4ab429906187672e17d2ddb22cb18ad312f707
