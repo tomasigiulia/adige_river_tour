@@ -1,0 +1,8 @@
+<krpano version="1.19.13" dbgi18n="false" debugmode="false" >
+    <include url="i18n.vskin.xml" if="i18n_lang !== null " />   
+    <include url="i18n__.xml"/>   
+    <include url="i18n__%$i18n_lang%.xml" if="i18n_lang !== null " />   
+    <action name="dbg_i18n">
+        if (dbgi18n == true, %1);
+    </action>
+</krpano>
