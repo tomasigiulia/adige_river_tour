@@ -131,7 +131,7 @@
     type="text"
     align="righttop"
     x="20"
-    y="20"
+    y="8"
     zorder="500"
     bgcolor="0x2D3E50"
     bgalpha="0.6"
