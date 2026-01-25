@@ -107,7 +107,7 @@
         plugin[krpanomaps].activatespot(get(xml.scene)); 
     </action>
 
-    <style name="hotspot_info" type="image" url="hotspots/info.svg" scale.desktop="0.32" scale.tablet="0.4" scale.mobile="0.5" distorted="true" css="color:#00CCFF;"/>
+    <style name="hotspot_info" type="image" url="hotspots/info.svg" scale.desktop="0.32" scale.tablet="0.4" scale.mobile="0.5" distorted="false" css="color:#00CCFF;"/>
 
 	<style name="box" type="container" bgcolor="0xFFFFFF" bgalpha="1" bgroundedge="5" bgshadow="0 4 8 0x000000 0.7" 
            width.desktop="22%" width.tablet="22%" width.mobile="240" 
