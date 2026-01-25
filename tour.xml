@@ -240,9 +240,25 @@
         set(layer[popup_title].html, get(titlecontent));
 
         txtadd(content_html, 
-               '<img src="', get(imageurl), '" style="width:100%; max-height:360px; object-fit:contain; display:block; margin:0 auto 15px auto; border-radius:8px;" />',
+            '<img src="', get(imageurl), '" style="width:70%; max-width:480px; max-height:360px; object-fit:contain; display:block; margin:0 auto 15px auto; border-radius:8px;" />',
             '<div style="color:#fff; font-family:Arial; font-size:16px; line-height:1.5; text-align:justify;">', get(textcontent), '</div>'
         );
+
+        set(layer[popup_content].html, get(content_html));
+        
+        reset_popup_scroll();
+    </action>
+    <!-- Azione popup info progetto personalizzata -->
+    <action name="open_project_info_popup" scope="local" args="titlecontent, textcontent, imageurl">
+        set(layer[popup_blur].visible, true);
+        set(layer[popup_bg].visible, true);
+
+        set(layer[popup_title].html, get(titlecontent));
+
+            txtadd(content_html, 
+                '<div style="color:#fff; font-family:Arial; font-size:16px; line-height:1.5; text-align:justify;">', get(textcontent), '</div>',
+                '<img src="', get(imageurl), '" style="width:28%; max-width:120px; max-height:90px; object-fit:contain; display:block; margin:15px auto 0 auto; border-radius:8px;" />'
+            );
 
         set(layer[popup_content].html, get(content_html));
         
@@ -264,7 +280,7 @@
 
     <!-- Azione popup info progetto -->
     <action name="open_project_info">
-        open_popup(
+        open_project_info_popup(
             'Informazioni progetto',
             '<div style="margin-top:12px;">Tour virtuale sviluppato da GT.</div>',
             'hotspots/logoflora360.jpg'
