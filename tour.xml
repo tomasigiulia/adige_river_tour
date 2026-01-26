@@ -4,8 +4,7 @@
 
     <!-- Inclusione logica grafica popup/info -->
     <include url="insidebar.xml" />
-    <!-- Inclusione contenuti hotspot -->
-    <include url="hotspots_data.xml" />
+    
 
 	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
 	<skin_settings maps="true"
