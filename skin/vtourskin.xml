@@ -1285,9 +1285,9 @@
 	
 	<!-- autotour/autoplay support -->
 	<autorotate enabled="calc:skin_settings.autotour == true"
-	            waittime="5.0"
+	            waittime="60.0"
 	            accel="0.7"
-	            speed="4.0"
+	            speed="2.0"
 	            tofov="80"
 	            oneroundrange="360"
 	            />

@@ -18,7 +18,7 @@
 	               webvr="false"
 	               webvr_keeplookingdirection="true"
 	               webvr_prev_next_hotspots="true"
-	               autotour="false"
+	               autotour="true"
 	               littleplanetintro="false"
 	               followmousecontrol="false"
 	               title="true"
@@ -153,7 +153,7 @@
 
 
 	
-	<scene name="scene_panorama1" title="panorama1" onstart="" thumburl="panos/panorama1.tiles/thumb.jpg" lat="45.22133333" lng="11.29434167" alt="34.06" heading="0.0">
+	<scene name="scene_panorama1" title="L'Adige presso Angiari (VR)" onstart="" thumburl="panos/panorama1.tiles/thumb.jpg" lat="45.22133333" lng="11.29434167" alt="34.06" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -180,7 +180,7 @@
 
 	</scene>
 
-	<scene name="scene_panorama2" title="panorama2" onstart="" thumburl="panos/panorama2.tiles/thumb.jpg" lat="45.22085556" lng="11.29424722" alt="48.90" heading="0.0">
+	<scene name="scene_panorama2" title="L'Adige presso Angiari (VR), sito di rilievo FMCR" onstart="" thumburl="panos/panorama2.tiles/thumb.jpg" lat="45.22085556" lng="11.29424722" alt="48.90" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -194,7 +194,7 @@
 
 	</scene>
 
-	<scene name="scene_panorama3" title="panorama3" onstart="" thumburl="panos/panorama3.tiles/thumb.jpg" lat="45.14435556" lng="12.30092500" alt="7.85" heading="0.0">
+	<scene name="scene_panorama3" title="Foce dell'Adige nel mare Adriatico presso Rosolina Mare (RO)" onstart="" thumburl="panos/panorama3.tiles/thumb.jpg" lat="45.14435556" lng="12.30092500" alt="7.85" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
