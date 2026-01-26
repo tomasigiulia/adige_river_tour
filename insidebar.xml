@@ -11,9 +11,6 @@
 
     <!-- Azione: apertura popup info progetto -->
     <action name="open_project_info_popup" scope="local" args="titlecontent, textcontent, imageurl">
-        set(layer[popup_blur].visible, true);
-        set(layer[popup_blur].alpha, 0);
-        tween(layer[popup_blur].alpha, 0.5, 0.4);
         set(layer[popup_bg].visible, true);
         set(layer[popup_bg].x, -550);
         set(layer[popup_title].html, get(titlecontent));
@@ -35,9 +32,6 @@
         trace('yaw=' + get(caller.ath) + ' pitch=' + get(caller.atv));
     </action>
     <action name="open_popup" scope="local" args="titlecontent, textcontent, imageurl">
-        set(layer[popup_blur].visible, true);
-        set(layer[popup_blur].alpha, 0);
-        tween(layer[popup_blur].alpha, 0.5, 0.4);
         set(layer[popup_bg].visible, true);
         set(layer[popup_bg].x, -550);
         set(layer[popup_title].html, get(titlecontent));
@@ -47,8 +41,11 @@
         reset_popup_scroll();
     </action>
     <action name="close_popup">
-        tween(layer[popup_blur].alpha, 0.0, 0.4);
-        tween(layer[popup_bg].x, -550, 0.4, easeInQuad, set(layer[popup_bg].visible, false); set(layer[popup_blur].visible, false); set(layer[popup_content].html, ''); set(layer[popup_bg].x, -550); reset_popup_scroll(); );
+    tween(layer[popup_bg].x, -550, 0.4, easeInQuad, 
+        set(layer[popup_bg].visible, false); 
+        set(layer[popup_content].html, ''); 
+        reset_popup_scroll(); 
+    );
     </action>
     <action name="reset_popup_scroll" type="Javascript"><![CDATA[
         var layer = krpano.get("layer[popup_content]");
