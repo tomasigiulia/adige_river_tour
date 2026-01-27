@@ -142,12 +142,17 @@
     bgroundedge="20"
     padding="10 16"
     css="color:white; font-family:Arial; font-size:14px; font-weight:bold; cursor:pointer;"
-    html="ⓘ Info"
     onover="tween(bgalpha,0.85,0.2);"
     onout="tween(bgalpha,0.6,0.2);"
-    onclick="open_project_info();"
+	html="link:translate(btn_info)"
+	onclick="open_project_info_popup(get(languages[get(language)].proj_title), get(languages[get(language)].proj_descr), 'hotspots/logoflora360.jpg');"
 />
 
+<layer name="lang_switch" keep="true" type="container" align="righttop" x="120" y="10" width="90" height="32" zorder="501" bgcolor="0x000000" bgalpha="0.3" bgroundedge="5">
+	<layer name="lang_it" type="text" align="left"  x="5"  html="IT" css="color:#FFFFFF; font-family:Arial; font-size:14px; font-weight:bold; cursor:pointer; text-align:center;" bg="false" onclick="set(language, 'it');" />
+	<layer name="lang_sep" type="text" align="center" html="|"  css="color:#FFFFFF; font-family:Arial; font-size:14px;" bg="false" enabled="false" />
+	<layer name="lang_en" type="text" align="right" x="5"  html="EN" css="color:#FFFFFF; font-family:Arial; font-size:14px; font-weight:bold; cursor:pointer; text-align:center;" bg="false" onclick="set(language, 'en');" />
+</layer>
 
 <!-- AZIONI -->
 
@@ -172,10 +177,7 @@
 	atv="24.43"
 	onover="set(css, 'color:#0099FF;'); set(url, 'hotspots/info_hover.svg'); if(device.mobile, tween(scale,0.75); , if(device.tablet, tween(scale,0.6); , tween(scale,0.36); ));"
 	onout="set(css, 'color:#bbbbbb;'); set(url, 'hotspots/info.svg'); if(device.mobile, tween(scale,0.5); , if(device.tablet, tween(scale,0.4); , tween(scale,0.26); ));"
-	onclick="open_popup(
-		'Sicyos angulatus',
-		get(data[hotspot1].content),
-		'hotspots/hotspot1.jpg');"
+	onclick="open_popup(get(languages[get(language)].h1_t), get(languages[get(language)].h1_c), 'hotspots/hotspot1.jpg');"
 	/>
 
 	</scene>

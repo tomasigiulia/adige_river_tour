@@ -20,11 +20,11 @@
         reset_popup_scroll();
     </action>
     <action name="open_project_info">
-        open_project_info_popup(
-            'Informazioni progetto',
-            '<div style="margin-top:12px;">Foto sferiche e Tour virtuale (krpano) sviluppato da Giulia Tomasi.</div>',
-            'hotspots/logoflora360.jpg'
-        );
+    open_project_info_popup(
+        translate(proj_title),
+        translate(proj_descr),
+        'hotspots/logoflora360.jpg'
+    );
     </action>
 
     <!-- Azione: trace_yaw_pitch per debug -->

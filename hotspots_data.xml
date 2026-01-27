@@ -1,5 +1,22 @@
 ﻿<krpano>
-   <data name="hotspot1"><![CDATA[
-     Neofita invasiva, annuale, erbacea e rampicante. Possiede dei fusti lianosi mediamente lunghi a maturità tra i 2 e i 5 metri, ma che quando la pianta si trova in condizioni ambientali ottimali possono anche diventare più lunghi. Grazie a cirri ramosi questi possono aggrapparsi ad altre piante o sostegni di diverso tipo. Le foglie sono lobate ed ispide, di aspetto cuoriforme, e possono arrivare ai 7 cm di lunghezza. Si tratta di una pianta monoica, ovvero con fiori maschili e femminili distinti ma compresenti sullo stesso individuo. I fiori maschili sono riuniti in racemi, quelli femminili in capolini con pochi fiori; la loro corolla è giallastra ma poco significativa.
-]]></data>
+    <set var="defaultlanguage" value="it" />
+    <set var="language" value="it" />
+
+    <languages name="it" 
+               displayname="Italiano"
+               btn_info="ⓘ Info"
+               proj_title="Informazioni Progetto"
+               proj_descr="Foto sferiche e Tour virtuale sviluppato da Giulia Tomasi."
+               h1_t="Sicyos angulatus"
+               h1_c="Pianta neofita invasiva, annuale e rampicante. I suoi fusti lianosi (2-5 metri) si ancorano alla vegetazione tramite viticci. Le foglie sono ispide e a forma di cuore."
+               />
+
+    <languages name="en" 
+               displayname="English"
+               btn_info="ⓘ Info"
+               proj_title="Project Information"
+               proj_descr="Spherical photos and Virtual Tour developed by Giulia Tomasi."
+               h1_t="Bur Cucumber (Sicyos angulatus)"
+               h1_c="Invasive annual climbing plant. Its vines (2-5 meters) anchor to vegetation via tendrils. The leaves are bristly and heart-shaped."
+               />
 </krpano>
