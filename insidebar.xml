@@ -20,11 +20,11 @@
         reset_popup_scroll();
     </action>
     <action name="open_project_info">
-    open_project_info_popup(
-        translate(proj_title),
-        translate(proj_descr),
-        'hotspots/logoflora360.jpg'
-    );
+        open_project_info_popup(
+            get(languages[get(language)].proj_title),
+            get(languages[get(language)].proj_descr),
+            'hotspots/logoflora360.jpg'
+        );
     </action>
 
     <!-- Azione: trace_yaw_pitch per debug -->
