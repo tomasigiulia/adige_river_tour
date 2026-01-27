@@ -159,7 +159,7 @@
 	onclick="open_project_info_popup(get(languages[get(language)].proj_title), get(languages[get(language)].proj_descr), 'hotspots/logoflora360.jpg');"
 />
 
-<layer name="lang_switch" keep="true" type="container" align="righttop" x="120" y="10" y.mobile="50" width="90" height="32" zorder="501" bgcolor="0x000000" bgalpha="0.3" bgroundedge="5">
+<layer name="lang_switch" keep="true" type="container" align="righttop" x="120" x.mobile="20" y="10" y.mobile="50" width="90" height="32" zorder="501" bgcolor="0x000000" bgalpha="0.3" bgroundedge="5">
 	<layer name="lang_it" type="text" align="left"  x="5"
 		html="IT"
 		css="link:language:'color:'+(language=='it'?'#FFFFFF':'#888888')+';font-family:Arial;font-size:14px;font-weight:bold;cursor:pointer;text-align:center;text-decoration:'+(language=='it'?'underline':'none')+';transition:color 0.3s, text-decoration 0.3s, opacity 0.3s;'"
