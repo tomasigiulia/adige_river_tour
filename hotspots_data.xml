@@ -7,6 +7,9 @@
                btn_info="ⓘ Info"
                proj_title="Informazioni Progetto"
                proj_descr="Foto sferiche e Tour virtuale sviluppato da Giulia Tomasi."
+               scene1_title="L'Adige presso Angiari (VR)"
+               scene2_title="L'Adige presso Angiari (VR), sito di rilievo FMCR"
+               scene3_title="Foce dell'Adige nel mare Adriatico presso Rosolina Mare (RO)"
                h1_t="Sicyos angulatus"
                h1_c="Pianta neofita invasiva, annuale e rampicante. I suoi fusti lianosi (2-5 metri) si ancorano alla vegetazione tramite viticci. Le foglie sono ispide e a forma di cuore."
                />
@@ -16,6 +19,9 @@
                btn_info="ⓘ Info"
                proj_title="Project Information"
                proj_descr="Spherical photos and Virtual Tour developed by Giulia Tomasi."
+               scene1_title="The Adige near Angiari (VR)"
+               scene2_title="The Adige near Angiari (VR), FMCR survey site"
+               scene3_title="Adige river mouth in the Adriatic Sea near Rosolina Mare (RO)"
                h1_t="Bur Cucumber (Sicyos angulatus)"
                h1_c="Invasive annual climbing plant. Its vines (2-5 meters) anchor to vegetation via tendrils. The leaves are bristly and heart-shaped."
                />

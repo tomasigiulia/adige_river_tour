@@ -104,7 +104,15 @@
         caller.zoomtospotsextent();
     </action>
 
-    <events onnewscene="close_popup();scene_activate_spot()" oncontrolbardown="close_popup();"/>
+	<events onnewscene="close_popup();scene_activate_spot();update_scene_titles();" oncontrolbardown="close_popup();"/>
+		<!-- Azione per aggiornare i titoli delle scene in base alla lingua -->
+		<action name="update_scene_titles" scope="local">
+			set(scene[scene_panorama1].title, get(languages[get(language)].scene1_title));
+			set(scene[scene_panorama2].title, get(languages[get(language)].scene2_title));
+			set(scene[scene_panorama3].title, get(languages[get(language)].scene3_title));
+			if(global.title, calc(layer[skin_title].html, global.title + ' - ' + scene[get(xml.scene)].title); , copy(layer[skin_title].html, scene[get(xml.scene)].title ); );
+			delayedcall(0.1, set(layer[skin_title].visible,true) );
+		</action>
     
     <action name="scene_activate_spot"> 
         plugin[krpanomaps].pantospot(get(xml.scene)); 
@@ -158,7 +166,7 @@
 		bg="false"
 		onover="if(language!='it', tween(alpha,1,0.18,easeInOutQuad); set(css,replace(css,'text-decoration:none','text-decoration:underline')); )"
 		onout="if(language!='it', tween(alpha,0.7,0.18,easeInOutQuad); set(css,replace(css,'text-decoration:underline','text-decoration:none')); )"
-		onclick="tween(alpha,0,0.13,easeInOutQuad); delayedcall(0.13, set(language, 'it'); tween(alpha,1,0.18,easeInOutQuad); )"
+		onclick="tween(alpha,0,0.13,easeInOutQuad); delayedcall(0.13, set(language, 'it'); call(update_scene_titles); tween(alpha,1,0.18,easeInOutQuad); )"
 	/>
 	<layer name="lang_sep" type="text" align="center" html="|"  css="color:#FFFFFF; font-family:Arial; font-size:14px;" bg="false" enabled="false" />
 	<layer name="lang_en" type="text" align="right" x="5"
@@ -167,7 +175,7 @@
 		bg="false"
 		onover="if(language!='en', tween(alpha,1,0.18,easeInOutQuad); set(css,replace(css,'text-decoration:none','text-decoration:underline')); )"
 		onout="if(language!='en', tween(alpha,0.7,0.18,easeInOutQuad); set(css,replace(css,'text-decoration:underline','text-decoration:none')); )"
-		onclick="tween(alpha,0,0.13,easeInOutQuad); delayedcall(0.13, set(language, 'en'); tween(alpha,1,0.18,easeInOutQuad); )"
+		onclick="tween(alpha,0,0.13,easeInOutQuad); delayedcall(0.13, set(language, 'en'); call(update_scene_titles); tween(alpha,1,0.18,easeInOutQuad); )"
 	/>
 </layer>
 
@@ -175,7 +183,7 @@
 
 
 	
-	<scene name="scene_panorama1" title="L'Adige presso Angiari (VR)" onstart="" thumburl="panos/panorama1.tiles/thumb.jpg" lat="45.22133333" lng="11.29434167" alt="34.06" heading="0.0">
+	<scene name="scene_panorama1" title="get(languages[get(language)].scene1_title)" onstart="" thumburl="panos/panorama1.tiles/thumb.jpg" lat="45.22133333" lng="11.29434167" alt="34.06" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -199,7 +207,7 @@
 
 	</scene>
 
-	<scene name="scene_panorama2" title="L'Adige presso Angiari (VR), sito di rilievo FMCR" onstart="" thumburl="panos/panorama2.tiles/thumb.jpg" lat="45.22085556" lng="11.29424722" alt="48.90" heading="0.0">
+	<scene name="scene_panorama2" title="get(languages[get(language)].scene2_title)" onstart="" thumburl="panos/panorama2.tiles/thumb.jpg" lat="45.22085556" lng="11.29424722" alt="48.90" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -213,7 +221,7 @@
 
 	</scene>
 
-	<scene name="scene_panorama3" title="Foce dell'Adige nel mare Adriatico presso Rosolina Mare (RO)" onstart="" thumburl="panos/panorama3.tiles/thumb.jpg" lat="45.14435556" lng="12.30092500" alt="7.85" heading="0.0">
+	<scene name="scene_panorama3" title="get(languages[get(language)].scene3_title)" onstart="" thumburl="panos/panorama3.tiles/thumb.jpg" lat="45.14435556" lng="12.30092500" alt="7.85" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
