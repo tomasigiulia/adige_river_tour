@@ -131,27 +131,44 @@
 
 <!-- Pulsante info progetto in alto a destra -->
 <layer name="project_info_btn"
-    keep="true"
-    type="text"
-    align="righttop"
-    x="20"
-    y="8"
-    zorder="500"
-    bgcolor="0x2D3E50"
-    bgalpha="0.6"
-    bgroundedge="20"
-    padding="10 16"
-    css="color:white; font-family:Arial; font-size:14px; font-weight:bold; cursor:pointer;"
-    onover="tween(bgalpha,0.85,0.2);"
-    onout="tween(bgalpha,0.6,0.2);"
+	keep="true"
+	type="text"
+	align="righttop"
+	x="20"
+	y="10"
+	width="90"
+	height="32"
+	zorder="500"
+	bgcolor="0x000000"
+	bgalpha="0.3"
+	bgroundedge="5"
+	padding="0 16"
+	vcenter="true"
+	css="color:white; font-family:Arial; font-size:14px; font-weight:bold; cursor:pointer; text-align:center; line-height:32px;"
+	onover="tween(bgalpha,0.5,0.2);"
+	onout="tween(bgalpha,0.3,0.2);"
 	html="link:translate(btn_info)"
 	onclick="open_project_info_popup(get(languages[get(language)].proj_title), get(languages[get(language)].proj_descr), 'hotspots/logoflora360.jpg');"
 />
 
 <layer name="lang_switch" keep="true" type="container" align="righttop" x="120" y="10" width="90" height="32" zorder="501" bgcolor="0x000000" bgalpha="0.3" bgroundedge="5">
-	<layer name="lang_it" type="text" align="left"  x="5"  html="IT" css="color:#FFFFFF; font-family:Arial; font-size:14px; font-weight:bold; cursor:pointer; text-align:center;" bg="false" onclick="set(language, 'it');" />
+	<layer name="lang_it" type="text" align="left"  x="5"
+		html="IT"
+		css="link:language:'color:'+(language=='it'?'#FFFFFF':'#888888')+';font-family:Arial;font-size:14px;font-weight:bold;cursor:pointer;text-align:center;text-decoration:'+(language=='it'?'underline':'none')+';transition:color 0.3s, text-decoration 0.3s, opacity 0.3s;'"
+		bg="false"
+		onover="if(language!='it', tween(alpha,1,0.18,easeInOutQuad); set(css,replace(css,'text-decoration:none','text-decoration:underline')); )"
+		onout="if(language!='it', tween(alpha,0.7,0.18,easeInOutQuad); set(css,replace(css,'text-decoration:underline','text-decoration:none')); )"
+		onclick="tween(alpha,0,0.13,easeInOutQuad); delayedcall(0.13, set(language, 'it'); tween(alpha,1,0.18,easeInOutQuad); )"
+	/>
 	<layer name="lang_sep" type="text" align="center" html="|"  css="color:#FFFFFF; font-family:Arial; font-size:14px;" bg="false" enabled="false" />
-	<layer name="lang_en" type="text" align="right" x="5"  html="EN" css="color:#FFFFFF; font-family:Arial; font-size:14px; font-weight:bold; cursor:pointer; text-align:center;" bg="false" onclick="set(language, 'en');" />
+	<layer name="lang_en" type="text" align="right" x="5"
+		html="EN"
+		css="link:language:'color:'+(language=='en'?'#FFFFFF':'#888888')+';font-family:Arial;font-size:14px;font-weight:bold;cursor:pointer;text-align:center;text-decoration:'+(language=='en'?'underline':'none')+';transition:color 0.3s, text-decoration 0.3s, opacity 0.3s;'"
+		bg="false"
+		onover="if(language!='en', tween(alpha,1,0.18,easeInOutQuad); set(css,replace(css,'text-decoration:none','text-decoration:underline')); )"
+		onout="if(language!='en', tween(alpha,0.7,0.18,easeInOutQuad); set(css,replace(css,'text-decoration:underline','text-decoration:none')); )"
+		onclick="tween(alpha,0,0.13,easeInOutQuad); delayedcall(0.13, set(language, 'en'); tween(alpha,1,0.18,easeInOutQuad); )"
+	/>
 </layer>
 
 <!-- AZIONI -->
