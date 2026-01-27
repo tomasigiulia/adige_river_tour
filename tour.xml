@@ -200,9 +200,9 @@
 	style="hotspot_info"
 	ath="-25.91"
 	atv="24.43"
-	onover="set(css, 'color:#0099FF;'); set(url, 'hotspots/info_hover.svg'); if(device.mobile, tween(scale,0.75); , if(device.tablet, tween(scale,0.6); , tween(scale,0.36); ));"
-	onout="set(css, 'color:#bbbbbb;'); set(url, 'hotspots/info.svg'); if(device.mobile, tween(scale,0.5); , if(device.tablet, tween(scale,0.4); , tween(scale,0.26); ));"
-	onclick="open_popup(get(languages[get(language)].h1_t), get(languages[get(language)].h1_c), 'hotspots/hotspot1.jpg');"
+	onover="if(device.desktop, set(css, 'color:#0099FF;'); set(url, 'hotspots/info_hover.svg'); tween(scale,0.36); )"
+	onout="if(device.desktop, set(css, 'color:#bbbbbb;'); set(url, 'hotspots/info.svg'); tween(scale,0.26); )"
+	onclick="if(device.mobile OR device.tablet, tween(scale,0.9,0.15,easeInOutQuad); set(css, 'color:#0099FF; box-shadow:0 0 12px #0099FF;'); delayedcall(0.3, tween(scale,0.5,0.15,easeInOutQuad); set(css, 'color:#bbbbbb; box-shadow:none;'); ); ); open_popup(get(languages[get(language)].h1_t), get(languages[get(language)].h1_c), 'hotspots/hotspot1.jpg');"
 	/>
 
 	</scene>
