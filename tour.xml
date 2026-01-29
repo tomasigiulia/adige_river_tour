@@ -110,6 +110,7 @@
 			set(scene[scene_panorama1].title, get(languages[get(language)].scene1_title));
 			set(scene[scene_panorama2].title, get(languages[get(language)].scene2_title));
 			set(scene[scene_panorama3].title, get(languages[get(language)].scene3_title));
+            set(scene[scene_pano_0001_panorama_panorama].title, get(languages[get(language)].scene4_title));
 			if(global.title, calc(layer[skin_title].html, global.title + ' - ' + scene[get(xml.scene)].title); , copy(layer[skin_title].html, scene[get(xml.scene)].title ); );
 			delayedcall(0.1, set(layer[skin_title].visible,true) );
 		</action>
@@ -201,6 +202,20 @@
 
 	</scene>
 
+	<scene name="scene_pano_0001_panorama_panorama" title="get(languages[get(language)].scene4_title)" onstart="" thumburl="panos/PANO_0001_Panorama_Panorama.tiles/thumb.jpg" lat="45.19941917" lng="11.30099139" alt="63.42" heading="0.0">
+		
+			<control bouncinglimits="calc:image.cube ? true : false" />
+
+			<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+			<preview url="panos/PANO_0001_Panorama_Panorama.tiles/preview.jpg" />
+
+			<image>
+			<cube url="panos/PANO_0001_Panorama_Panorama.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,768,1536,3072,5888" />
+			</image>
+
+	</scene>
+
 	<scene name="scene_panorama3" title="get(languages[get(language)].scene3_title)" onstart="" thumburl="panos/panorama3.tiles/thumb.jpg" lat="45.14435556" lng="12.30092500" alt="7.85" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
@@ -214,8 +229,6 @@
 		</image>
 
 	</scene>
-
-
 
     <events name="debug_coords" keep="true" onclick="trace_coordinates();" />
 
