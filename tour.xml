@@ -111,6 +111,8 @@
 			set(scene[scene_panorama2].title, get(languages[get(language)].scene2_title));
 			set(scene[scene_panorama3].title, get(languages[get(language)].scene3_title));
             set(scene[scene_pano_0001_panorama_panorama].title, get(languages[get(language)].scene4_title));
+			set(scene[scene_pano_5].title, get(languages[get(language)].scene5_title));
+			set(scene[scene_pano_6].title, get(languages[get(language)].scene6_title));
 			if(global.title, calc(layer[skin_title].html, global.title + ' - ' + scene[get(xml.scene)].title); , copy(layer[skin_title].html, scene[get(xml.scene)].title ); );
 			delayedcall(0.1, set(layer[skin_title].visible,true) );
 		</action>
@@ -136,7 +138,6 @@
     <action name="expand" scope="local"> if(caller.expanded == false, caller.expanded = true; caller.backupalign = caller.parentobject.align; caller.backupedge = caller.parentobject.align; caller.backuppos = join('|',caller.parentobject.x, caller.parentobject.y, caller.parentobject.width, caller.parentobject.height); caller.parentobject.zorder += 100; callwith(caller.parentobject, changealign(center,center); tween(x|y|width|height, 0|0|-100|-100); ); , callwith(caller.parentobject, changealign(get(caller.backupalign),get(caller.backupedge)); tween(x|y|width|height, get(caller.backuppos), 0.5, default, caller.expanded = false; caller.parentobject.zorder -= 100; ); ); ); </action>
 
 
-<!-- LAYER per il blur di sfondo -->
 
 <!-- Pulsante lingua in alto a destra -->
 
@@ -162,7 +163,33 @@
 
 <!-- AZIONI -->
 
+	<scene name="scene_pano_6" title="get(languages[get(language)].scene6_title)" onstart="" thumburl="panos/PANO_6.tiles/thumb.jpg" lat="45.64128028" lng="10.88382000" alt="68.66" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
 
+		<view hlookat="-75.600" vlookat="15.765" fovtype="MFOV" fov="140.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/PANO_6.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/PANO_6.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,768,1536,3072,6144" />
+		</image>
+
+	</scene>
+	
+	<scene name="scene_pano_5" title="get(languages[get(language)].scene5_title)" onstart="" thumburl="panos/PANO_5.tiles/thumb.jpg" lat="45.48083694" lng="10.82986333" alt="62.97" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="743.791" vlookat="27.224" fovtype="MFOV" fov="140.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/PANO_5.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/PANO_5.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,768,1536,3072,6144" />
+		</image>
+
+	</scene>
 	
 	<scene name="scene_panorama1" title="get(languages[get(language)].scene1_title)" onstart="" thumburl="panos/panorama1.tiles/thumb.jpg" lat="45.22133333" lng="11.29434167" alt="34.06" heading="0.0">
 		
@@ -229,6 +256,8 @@
 		</image>
 
 	</scene>
+
+	
 
     <events name="debug_coords" keep="true" onclick="trace_coordinates();" />
 
