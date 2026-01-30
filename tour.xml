@@ -161,7 +161,7 @@
 	/>
 </layer>
 
-<!-- AZIONI -->
+<!-- scene -->
 
 	<scene name="scene_pano_6" title="get(languages[get(language)].scene6_title)" onstart="" thumburl="panos/PANO_6.tiles/thumb.jpg" lat="45.64128028" lng="10.88382000" alt="68.66" heading="0.0">
 		
@@ -174,7 +174,15 @@
 		<image>
 			<cube url="panos/PANO_6.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,768,1536,3072,6144" />
 		</image>
-
+		<!-- HOTSPOT nella scena -->
+	<hotspot name="info2"
+	style="hotspot_info"
+	ath="-105.29"
+	atv="38.96"
+	onover="if(device.desktop, set(css, 'color:#0099FF;'); set(url, 'hotspots/info_hover.svg'); tween(scale,0.36); )"
+	onout="if(device.desktop, set(css, 'color:#bbbbbb;'); set(url, 'hotspots/info.svg'); tween(scale,0.26); )"
+	onclick="if(device.mobile OR device.tablet, tween(scale,0.9,0.15,easeInOutQuad); set(css, 'color:#0099FF; box-shadow:0 0 12px #0099FF;'); delayedcall(0.3, tween(scale,0.5,0.15,easeInOutQuad); set(css, 'color:#bbbbbb; box-shadow:none;'); ); ); open_popup(get(languages[get(language)].h2_t), get(languages[get(language)].h2_c), 'hotspots/Sicyos_angulatus_map.jpg');"
+	/>
 	</scene>
 	
 	<scene name="scene_pano_5" title="get(languages[get(language)].scene5_title)" onstart="" thumburl="panos/PANO_5.tiles/thumb.jpg" lat="45.48083694" lng="10.82986333" alt="62.97" heading="0.0">
@@ -226,7 +234,15 @@
 		<image>
 			<cube url="panos/panorama2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
 		</image>
-
+	<!-- HOTSPOT nella scena -->
+	<hotspot name="info3"
+	style="hotspot_info"
+	ath="-145.6"
+	atv="10.65"
+	onover="if(device.desktop, set(css, 'color:#0099FF;'); set(url, 'hotspots/info_hover.svg'); tween(scale,0.36); )"
+	onout="if(device.desktop, set(css, 'color:#bbbbbb;'); set(url, 'hotspots/info.svg'); tween(scale,0.26); )"
+	onclick="if(device.mobile OR device.tablet, tween(scale,0.9,0.15,easeInOutQuad); set(css, 'color:#0099FF; box-shadow:0 0 12px #0099FF;'); delayedcall(0.3, tween(scale,0.5,0.15,easeInOutQuad); set(css, 'color:#bbbbbb; box-shadow:none;'); ); ); open_popup(get(languages[get(language)].h3_t), get(languages[get(language)].h3_c), 'hotspots/sitoplot.jpg');"
+	/>
 	</scene>
 
 	<scene name="scene_pano_0001_panorama_panorama" title="get(languages[get(language)].scene4_title)" onstart="" thumburl="panos/PANO_0001_Panorama_Panorama.tiles/thumb.jpg" lat="45.19941917" lng="11.30099139" alt="63.42" heading="0.0">
@@ -254,6 +270,16 @@
 		<image>
 			<cube url="panos/panorama3.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
 		</image>
+
+	<!-- HOTSPOT nella scena -->
+	<hotspot name="info4"
+	style="hotspot_info"
+	ath="-9.67 "
+	atv="1.29"
+	onover="if(device.desktop, set(css, 'color:#0099FF;'); set(url, 'hotspots/info_hover.svg'); tween(scale,0.36); )"
+	onout="if(device.desktop, set(css, 'color:#bbbbbb;'); set(url, 'hotspots/info.svg'); tween(scale,0.26); )"
+	onclick="if(device.mobile OR device.tablet, tween(scale,0.9,0.15,easeInOutQuad); set(css, 'color:#0099FF; box-shadow:0 0 12px #0099FF;'); delayedcall(0.3, tween(scale,0.5,0.15,easeInOutQuad); set(css, 'color:#bbbbbb; box-shadow:none;'); ); ); open_popup(get(languages[get(language)].h4_t), get(languages[get(language)].h4_c), 'hotspots/adige.jpg');"
+	/>
 
 	</scene>
 
