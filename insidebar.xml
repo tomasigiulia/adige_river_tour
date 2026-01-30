@@ -9,6 +9,17 @@
     <!-- Evento: chiudi popup cliccando fuori -->
     <events name="popup_interaction_events" keep="true" onmousedown="if(layer[popup_bg].visible, close_popup() );" />
 
+    <!-- Toggle apertura/chiusura popup info progetto -->
+    <action name="toggle_project_info_popup">
+        if(global.project_info_opened == true,
+            close_popup();
+            set(global.project_info_opened, false);
+        ,
+            open_project_info();
+            set(global.project_info_opened, true);
+        );
+    </action>
+
     <!-- Azione: apertura popup info progetto -->
     <action name="open_project_info_popup" scope="local" args="titlecontent, textcontent, imageurl">
         set(layer[popup_bg].visible, true);
@@ -17,6 +28,7 @@
         txtadd(content_html, '<div style="margin-bottom:20px;">', get(textcontent), '</div>', '<img src="', get(imageurl), '" style="width:120px; display:block; margin:0 auto; border-radius:4px;" />');
         set(layer[popup_content].html, get(content_html));
         tween(layer[popup_bg].x, 0, 0.4, easeOutQuad);
+        set(global.project_info_opened, true);
         reset_popup_scroll();
     </action>
     <action name="open_project_info">
@@ -44,6 +56,7 @@
     tween(layer[popup_bg].x, -550, 0.4, easeInQuad, 
         set(layer[popup_bg].visible, false); 
         set(layer[popup_content].html, ''); 
+        set(global.project_info_opened, false);
         reset_popup_scroll(); 
     );
     </action>
