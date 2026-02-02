@@ -161,7 +161,7 @@
 
 	<style name="hotspot_info" type="image" url="hotspots/info.svg" scale.desktop="0.26" scale.tablet="0.4" scale.mobile="0.5" distorted="false" css="color:#bbbbbb;"/>
 
-	<style name="mypolygonalhotspotstylename" fillcolor="0x999999" fillalpha="0.25" borderwidth="2.0" bordercolor="0x333333" borderalpha="1.0" onover="tween(fillalpha,0.5);" onout="tween(fillalpha,0.25);" />
+	<style name="mypolygonalhotspotstylename" fillcolor="0x999999" fillalpha="0.25" borderwidth="2.0" bordercolor="0xFFFFFF" borderalpha="1.0" onover="tween(fillalpha,0.5);" onout="tween(fillalpha,0.25);" />
 
 	<!-- Variabile globale per controllo visibilità hotspot -->
 	<set var="global.polygonal_hotspots_visible" value="true" />
