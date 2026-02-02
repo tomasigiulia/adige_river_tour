@@ -5,6 +5,9 @@
     <!-- Inclusione logica grafica popup/info -->
     <include url="insidebar.xml" />
     <include url="hotspots_data.xml" />
+	
+	<!-- Inclusione ToolBox -->
+	<include url="toolbox/toolbox/toolbox.xml" />
 
 	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
 	<skin_settings maps="true"
@@ -124,6 +127,8 @@
 
 	<style name="hotspot_info" type="image" url="hotspots/info.svg" scale.desktop="0.26" scale.tablet="0.4" scale.mobile="0.5" distorted="false" css="color:#bbbbbb;"/>
 
+	<style name="mypolygonalhotspotstylename" fillcolor="0x999999" fillalpha="0.25" borderwidth="2.0" bordercolor="0x333333" borderalpha="1.0" onover="tween(fillalpha,0.5);" onout="tween(fillalpha,0.25);" />
+
 	<style name="box" type="container" bgcolor="0xFFFFFF" bgalpha="1" bgroundedge="5" bgshadow="0 4 8 0x000000 0.7" 
            width.desktop="22%" width.tablet="22%" width.mobile="240" 
            height.desktop="50%" height.tablet="50%" height.mobile="40%" 
@@ -196,6 +201,25 @@
 		<image>
 			<cube url="panos/PANO_5.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,768,1536,3072,6144" />
 		</image>
+
+		<!-- HOTSPOT poligonale nella scena -->
+		<hotspot name="hs1" style="mypolygonalhotspotstylename" onclick="open_popup(get(languages[get(language)].h5_t), get(languages[get(language)].h5_c), 'hotspots/Salix alba.jpg');">
+			<point ath="92.11045248080157" atv="32.29934276364675" />
+			<point ath="102.41142239771153" atv="20.111408883391213" />
+			<point ath="109.22938380805141" atv="19.88213065368868" />
+			<point ath="120.73952000577172" atv="25.883480848605437" />
+			<point ath="133.39499923656606" atv="33.53642663051503" />
+			<point ath="150.69934086268873" atv="45.69271152246624" />
+			<point ath="167.60221765162578" atv="52.98419878576132" />
+			<point ath="-157.7280178949661" atv="55.13910180320656" />
+			<point ath="-114.1886698619505" atv="54.48032423568869" />
+			<point ath="-99.27938119813109" atv="54.53013597357032" />
+			<point ath="-90.69247815235076" atv="54.77110934478049" />
+			<point ath="-96.72401106885431" atv="71.04624566106551" />
+			<point ath="70.43054792480393" atv="87.03010898362756" />
+			<point ath="94.58792587735796" atv="57.013832188493915" />
+			<point ath="92.94155290730463" atv="37.200529744976585" />
+		</hotspot>
 
 	</scene>
 	
