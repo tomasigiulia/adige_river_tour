@@ -107,7 +107,7 @@
         caller.zoomtospotsextent();
     </action>
 
-	<events onnewscene="close_popup();scene_activate_spot();update_scene_titles();" oncontrolbardown="close_popup();"/>
+	<events onnewscene="close_popup();scene_activate_spot();update_scene_titles();reset_hotspot_visibility();" oncontrolbardown="close_popup();"/>
 		<!-- Azione per aggiornare i titoli delle scene in base alla lingua -->
 		<action name="update_scene_titles" scope="local">
 			set(scene[scene_panorama1].title, get(languages[get(language)].scene1_title));
@@ -125,32 +125,45 @@
         plugin[krpanomaps].activatespot(get(xml.scene)); 
     </action>
 
-	<!-- Azione per toggleare hotspot poligonali -->
+	<!-- Azione per toggleare hotspot (poligonali + puntuali) -->
 	<action name="toggle_polygonal_hotspots">
 		if(global.polygonal_hotspots_visible == true,
 			forall(hotspot, hs,
-				if(hs.style == 'mypolygonalhotspotstylename',
+				if(hs.style == 'mypolygonalhotspotstylename' OR hs.style == 'hotspot_info',
 					set(hs.visible, false);
 				);
 			);
 			set(global.polygonal_hotspots_visible, false);
-			set(layer[poly_hotspot_btn].css, 'color:#999999;');
+			set(layer[poly_hotspot_toggle_btn].url, 'skin/layer_off.png');
+			set(layer[poly_hotspot_toggle_btn].tooltip, 'Hotspot nascosti');
 		,
 			forall(hotspot, hs,
-				if(hs.style == 'mypolygonalhotspotstylename',
+				if(hs.style == 'mypolygonalhotspotstylename' OR hs.style == 'hotspot_info',
 					set(hs.visible, true);
 				);
 			);
 			set(global.polygonal_hotspots_visible, true);
-			set(layer[poly_hotspot_btn].css, 'color:#00AA00;');
+			set(layer[poly_hotspot_toggle_btn].url, 'skin/layer2.png');
+			set(layer[poly_hotspot_toggle_btn].tooltip, 'Hotspot visibili');
 		);
+	</action>
+
+	<action name="reset_hotspot_visibility">
+		forall(hotspot, hs,
+			if(hs.style == 'mypolygonalhotspotstylename' OR hs.style == 'hotspot_info',
+				set(hs.visible, true);
+			);
+		);
+		set(global.polygonal_hotspots_visible, true);
+		set(layer[poly_hotspot_toggle_btn].url, 'skin/layer2.png');
+		set(layer[poly_hotspot_toggle_btn].tooltip, 'Hotspot visibili');
 	</action>
 
 	<style name="hotspot_info" type="image" url="hotspots/info.svg" scale.desktop="0.26" scale.tablet="0.4" scale.mobile="0.5" distorted="false" css="color:#bbbbbb;"/>
 
 	<style name="mypolygonalhotspotstylename" fillcolor="0x999999" fillalpha="0.25" borderwidth="2.0" bordercolor="0x333333" borderalpha="1.0" onover="tween(fillalpha,0.5);" onout="tween(fillalpha,0.25);" />
 
-	<!-- Variabile globale per controllo visibilità hotspot poligonali -->
+	<!-- Variabile globale per controllo visibilità hotspot -->
 	<set var="global.polygonal_hotspots_visible" value="true" />
 
 	<style name="box" type="container" bgcolor="0xFFFFFF" bgalpha="1" bgroundedge="5" bgshadow="0 4 8 0x000000 0.7" 
