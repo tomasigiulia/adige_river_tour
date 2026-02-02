@@ -125,9 +125,33 @@
         plugin[krpanomaps].activatespot(get(xml.scene)); 
     </action>
 
+	<!-- Azione per toggleare hotspot poligonali -->
+	<action name="toggle_polygonal_hotspots">
+		if(global.polygonal_hotspots_visible == true,
+			forall(hotspot, hs,
+				if(hs.style == 'mypolygonalhotspotstylename',
+					set(hs.visible, false);
+				);
+			);
+			set(global.polygonal_hotspots_visible, false);
+			set(layer[poly_hotspot_btn].css, 'color:#999999;');
+		,
+			forall(hotspot, hs,
+				if(hs.style == 'mypolygonalhotspotstylename',
+					set(hs.visible, true);
+				);
+			);
+			set(global.polygonal_hotspots_visible, true);
+			set(layer[poly_hotspot_btn].css, 'color:#00AA00;');
+		);
+	</action>
+
 	<style name="hotspot_info" type="image" url="hotspots/info.svg" scale.desktop="0.26" scale.tablet="0.4" scale.mobile="0.5" distorted="false" css="color:#bbbbbb;"/>
 
 	<style name="mypolygonalhotspotstylename" fillcolor="0x999999" fillalpha="0.25" borderwidth="2.0" bordercolor="0x333333" borderalpha="1.0" onover="tween(fillalpha,0.5);" onout="tween(fillalpha,0.25);" />
+
+	<!-- Variabile globale per controllo visibilità hotspot poligonali -->
+	<set var="global.polygonal_hotspots_visible" value="true" />
 
 	<style name="box" type="container" bgcolor="0xFFFFFF" bgalpha="1" bgroundedge="5" bgshadow="0 4 8 0x000000 0.7" 
            width.desktop="22%" width.tablet="22%" width.mobile="240" 
@@ -142,10 +166,7 @@
 
     <action name="expand" scope="local"> if(caller.expanded == false, caller.expanded = true; caller.backupalign = caller.parentobject.align; caller.backupedge = caller.parentobject.align; caller.backuppos = join('|',caller.parentobject.x, caller.parentobject.y, caller.parentobject.width, caller.parentobject.height); caller.parentobject.zorder += 100; callwith(caller.parentobject, changealign(center,center); tween(x|y|width|height, 0|0|-100|-100); ); , callwith(caller.parentobject, changealign(get(caller.backupalign),get(caller.backupedge)); tween(x|y|width|height, get(caller.backuppos), 0.5, default, caller.expanded = false; caller.parentobject.zorder -= 100; ); ); ); </action>
 
-
-
 <!-- Pulsante lingua in alto a destra -->
-
 <layer name="lang_switch" keep="true" type="container" align="righttop" x="20" y="10" width="90" height="32" zorder="501" bgcolor="0x000000" bgalpha="0.3" bgroundedge="5">
 	<layer name="lang_it" type="text" align="left"  x="5"
 		html="IT"
@@ -203,7 +224,7 @@
 		</image>
 
 		<!-- HOTSPOT poligonale nella scena -->
-		<hotspot name="hs1" style="mypolygonalhotspotstylename" onclick="open_popup(get(languages[get(language)].h5_t), get(languages[get(language)].h5_c), 'hotspots/Salix alba.jpg');">
+		<hotspot name="hs1" style="mypolygonalhotspotstylename" onclick="open_popup(get(languages[get(language)].h5_t), get(languages[get(language)].h5_c), 'hotspots/Salix alba.JPG');">
 			<point ath="92.11045248080157" atv="32.29934276364675" />
 			<point ath="102.41142239771153" atv="20.111408883391213" />
 			<point ath="109.22938380805141" atv="19.88213065368868" />
