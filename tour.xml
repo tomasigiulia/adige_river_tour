@@ -401,6 +401,14 @@
 	onclick="if(device.mobile OR device.tablet, tween(scale,0.9,0.15,easeInOutQuad); set(css, 'color:#0099FF; box-shadow:0 0 12px #0099FF;'); delayedcall(0.3, tween(scale,0.5,0.15,easeInOutQuad); set(css, 'color:#bbbbbb; box-shadow:none;'); ); ); open_popup(get(languages[get(language)].h4_t), get(languages[get(language)].h4_c), 'hotspots/adige.jpg');"
 	/>
 
+	<!-- Etichetta skyline Mare Adriatico -->
+	<hotspot name="skyline_mare_adriatico"
+	style="skyline_label"
+	ath="-21.086743945447804"
+	atv="-6.240166230894507"
+	html="[div style='text-align:center;display:flex;flex-direction:column;align-items:center;'][span style='font-size:12px;opacity:0.9;display:block;margin-bottom:2px;']0 m s.l.m[/span][b style='font-size:18px;display:block;margin-bottom:8px;']MARE ADRIATICO[/b][img src='hotspots/arrow_down.svg' style='display:block;width:30px;height:80px;'][/img][/div]"
+	/>
+
 	</scene>
 
 	
