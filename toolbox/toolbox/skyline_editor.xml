@@ -61,7 +61,7 @@
 		
 		txtadd(label_text, 'ETICHETTA ', get(global.skyline_counter));
 		copy(arrow_height, global.skyline_arrow_height);
-		txtadd(html_content, '[div style=&quot;text-align:center;display:flex;flex-direction:column;align-items:center;&quot;][span style=&quot;font-size:12px;opacity:0.9;display:block;margin-bottom:2px;&quot;]1.5km - 3 min[br/]800m - 15 min[/span][b style=&quot;font-size:18px;display:block;margin-bottom:8px;&quot;]', get(label_text), '[/b][img src=&quot;hotspots/arrow_down.svg&quot; style=&quot;display:block;width:30px;height:', get(arrow_height), 'px;&quot;][/img][/div]');
+		txtadd(html_content, '[div style=&quot;text-align:center;display:flex;flex-direction:column;align-items:center;&quot;][span style=&quot;font-size:12px;opacity:0.9;display:block;margin-bottom:2px;&quot;]0 m s.l.m[/span][b style=&quot;font-size:18px;display:block;margin-bottom:8px;&quot;]', get(label_text), '[/b][img src=&quot;hotspots/arrow_down.svg&quot; style=&quot;display:block;width:30px;height:', get(arrow_height), 'px;&quot;][/img][/div]');
 		set(hotspot[get(hotspot_name)].html, get(html_content));
 		
 		txtadd(marker_name, 'skyline_marker_', get(global.skyline_counter));
