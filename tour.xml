@@ -411,7 +411,7 @@
 		/>
 
 		<!-- POLYLINE GENERATA DAL POLYLINE EDITOR -->
-		<hotspot name="polyline_1" polyline="true" borderwidth="8.0" bordercolor="0xFF6B00" borderalpha="0.9" borderdash="10,5" distorted="true">
+		<hotspot name="polyline_1" polyline="true" borderwidth="8.0" bordercolor="0xFF6B00" borderalpha="0.9" distorted="true">
 			<point ath="-102.7327328470365" atv="39.78205389235683"/>
 			<point ath="-100.46703703092314" atv="32.37897654310782"/>
 			<point ath="-98.38590440862309" atv="27.15857007171378"/>
