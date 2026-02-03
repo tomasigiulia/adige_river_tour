@@ -23,6 +23,7 @@
 		set(global.skyline_counter, 1);
 		set(global.skyline_selected, null);
 		set(global.skyline_drag_mode, false);
+		set(global.skyline_arrow_height, 80);
 	</action>
 	
 	<!-- Attiva/Disattiva editor skyline -->
@@ -59,7 +60,8 @@
 		copy(hotspot[get(hotspot_name)].atv, view.vlookat);
 		
 		txtadd(label_text, 'ETICHETTA ', get(global.skyline_counter));
-		txtadd(html_content, '[div style=&quot;text-align:center;display:flex;flex-direction:column;align-items:center;&quot;][span style=&quot;font-size:12px;opacity:0.9;display:block;margin-bottom:2px;&quot;]1.5km - 3 min[br/]800m - 15 min[/span][b style=&quot;font-size:18px;display:block;margin-bottom:5px;&quot;]', get(label_text), '[/b][img src=&quot;hotspots/arrow_down.svg&quot; style=&quot;display:block;width:30px;height:50px;&quot;][/img][/div]');
+		copy(arrow_height, global.skyline_arrow_height);
+		txtadd(html_content, '[div style=&quot;text-align:center;display:flex;flex-direction:column;align-items:center;&quot;][span style=&quot;font-size:12px;opacity:0.9;display:block;margin-bottom:2px;&quot;]1.5km - 3 min[br/]800m - 15 min[/span][b style=&quot;font-size:18px;display:block;margin-bottom:8px;&quot;]', get(label_text), '[/b][img src=&quot;hotspots/arrow_down.svg&quot; style=&quot;display:block;width:30px;height:', get(arrow_height), 'px;&quot;][/img][/div]');
 		set(hotspot[get(hotspot_name)].html, get(html_content));
 		
 		txtadd(marker_name, 'skyline_marker_', get(global.skyline_counter));
@@ -133,22 +135,27 @@
 			copy(hs_name, global.skyline_selected);
 			copy(hs_ath, hotspot[get(hs_name)].ath);
 			copy(hs_atv, hotspot[get(hs_name)].atv);
+			copy(hs_html, hotspot[get(hs_name)].html);
 			
 			trace('========================================');
 			trace('CODICE ETICHETTA SKYLINE');
 			trace('========================================');
 			trace('Copia questo codice nella scena desiderata:');
 			trace('');
-			trace(calc('Nome: ' + hs_name));
-			trace(calc('ATH: ' + hs_ath));
-			trace(calc('ATV: ' + hs_atv));
+			calc(line1, '&lt;hotspot name=&quot;' + get(hs_name) + '&quot;');
+			trace(get(line1));
+			trace('         style=&quot;skyline_label&quot;');
+			calc(line2, '         ath=&quot;' + get(hs_ath) + '&quot;');
+			trace(get(line2));
+			calc(line3, '         atv=&quot;' + get(hs_atv) + '&quot;');
+			trace(get(line3));
+			calc(line4, '         html=&quot;' + get(hs_html) + '&quot;');
+			trace(get(line4));
+			trace('/&gt;');
 			trace('');
-			trace('Esempio codice hotspot:');
-			trace('style=skyline_label');
-			trace('html=[div][b]NOME MONTAGNA[/b][/div]');
 			trace('========================================');
 			
-			txtadd(output, 'ATH: ', get(hs_ath), '[br/]ATV: ', get(hs_atv), '[br/]Nome: ', get(hs_name), '[br/]Vedi console F12 per dettagli');
+			txtadd(output, 'ATH: ', get(hs_ath), '[br/]ATV: ', get(hs_atv), '[br/]Nome: ', get(hs_name), '[br/]Vedi console F12 per codice completo');
 			set(layer[skyline_code_output].html, get(output));
 			set(layer[skyline_code_output].visible, true);
 			set(layer[skyline_info_text].html, 'Codice copiato nella console! Premi F12 per vederlo.');
@@ -197,6 +204,24 @@
 		set(layer[skyline_info_text].html, 'Marker visibili');
 	</action>
 	
+	<!-- Aumenta altezza freccia -->
+	<action name="increase_arrow_height">
+		calc(global.skyline_arrow_height, global.skyline_arrow_height + 10);
+		if(global.skyline_arrow_height GT 800, set(global.skyline_arrow_height, 800));
+		txtadd(msg, 'Altezza freccia: ', get(global.skyline_arrow_height), 'px');
+		set(layer[skyline_info_text].html, get(msg));
+		set(layer[arrow_height_value].html, calc(global.skyline_arrow_height + 'px'));
+	</action>
+	
+	<!-- Diminuisci altezza freccia -->
+	<action name="decrease_arrow_height">
+		calc(global.skyline_arrow_height, global.skyline_arrow_height - 10);
+		if(global.skyline_arrow_height LT 20, set(global.skyline_arrow_height, 20));
+		txtadd(msg, 'Altezza freccia: ', get(global.skyline_arrow_height), 'px');
+		set(layer[skyline_info_text].html, get(msg));
+		set(layer[arrow_height_value].html, calc(global.skyline_arrow_height + 'px'));
+	</action>
+	
 	<!-- Panel dell'editor -->
 	<layer name="skyline_editor_panel" 
 	       type="container"
@@ -204,7 +229,7 @@
 	       x="10"
 	       y="80"
 	       width="320"
-	       height="450"
+	       height="505"
 	       bgcolor="0x000000"
 	       bgalpha="0.85"
 	       bgroundedge="10"
@@ -335,12 +360,79 @@
 		       onout="tween(bgalpha, 0.8);"
 		/>
 		
+		<!-- Regolazione altezza freccia -->
+		<layer name="manual_arrow_label"
+		       type="text"
+		       align="lefttop"
+		       x="15"
+		       y="230"
+		       width="290"
+		       height="20"
+		       css="color:#00AAFF; font-size:13px; font-weight:bold; font-family:Arial;"
+		       html="Altezza Freccia:"
+		       bg="false"
+		/>
+		
+		<!-- Pulsante: Diminuisci altezza -->
+		<layer name="btn_decrease_arrow"
+		       type="text"
+		       align="lefttop"
+		       x="15"
+		       y="255"
+		       width="60"
+		       height="35"
+		       bgcolor="0xFF6600"
+		       bgalpha="0.8"
+		       bgroundedge="5"
+		       css="color:#FFFFFF; font-size:20px; font-weight:bold; font-family:Arial; text-align:center; padding-top:4px;"
+		       html="-"
+		       handcursor="true"
+		       onclick="decrease_arrow_height();"
+		       onover="tween(bgalpha, 1.0);"
+		       onout="tween(bgalpha, 0.8);"
+		/>
+		
+		<!-- Display valore corrente -->
+		<layer name="arrow_height_value"
+		       type="text"
+		       align="lefttop"
+		       x="85"
+		       y="255"
+		       width="150"
+		       height="35"
+		       bgcolor="0x222222"
+		       bgalpha="0.9"
+		       bgroundedge="5"
+		       css="color:#00FF00; font-size:18px; font-weight:bold; font-family:Arial; text-align:center; padding-top:6px;"
+		       html="80px"
+		       bg="true"
+		/>
+		
+		<!-- Pulsante: Aumenta altezza -->
+		<layer name="btn_increase_arrow"
+		       type="text"
+		       align="lefttop"
+		       x="245"
+		       y="255"
+		       width="60"
+		       height="35"
+		       bgcolor="0xFF6600"
+		       bgalpha="0.8"
+		       bgroundedge="5"
+		       css="color:#FFFFFF; font-size:20px; font-weight:bold; font-family:Arial; text-align:center; padding-top:4px;"
+		       html="+"
+		       handcursor="true"
+		       onclick="increase_arrow_height();"
+		       onover="tween(bgalpha, 1.0);"
+		       onout="tween(bgalpha, 0.8);"
+		/>
+		
 		<!-- Area info -->
 		<layer name="skyline_info_text"
 		       type="text"
 		       align="lefttop"
 		       x="15"
-		       y="225"
+		       y="300"
 		       width="290"
 		       height="50"
 		       bgcolor="0x333333"
@@ -356,9 +448,9 @@
 		       type="text"
 		       align="lefttop"
 		       x="15"
-		       y="285"
+		       y="360"
 		       width="290"
-		       height="130"
+		       height="80"
 		       bgcolor="0x111111"
 		       bgalpha="0.9"
 		       bgroundedge="5"
@@ -373,7 +465,7 @@
 		       type="text"
 		       align="lefttop"
 		       x="15"
-		       y="425"
+		       y="450"
 		       width="290"
 		       height="35"
 		       bgcolor="0x444444"
