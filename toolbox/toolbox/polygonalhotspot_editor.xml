@@ -41,9 +41,9 @@
 	<!--
 	 ***************** THE ENGINE ***********
 	-->
-	<events 
-		onkeydown="if(global.keycode == 32, PheStopdraw(get(global.phehsname)));"
-		onclick="if(phedrawing == true, PheAddpoint());"
+	<events name="polyedit_events" keep="true"
+		onkeydown="if(global.keycode == 32, PheStopdraw(get(global.phehsname)); if(global.polyline_drawing == true, finish_polyline_drawing()); )"
+		onclick="if(phedrawing == true, PheAddpoint()); if(global.polyline_drawing == true, add_polyline_point());"
 	/>
 
 	<action name="PheStartdraw" scope="private:poly">

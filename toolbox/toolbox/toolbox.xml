@@ -1,6 +1,7 @@
 ﻿<krpano>
 	<include url="distortedhotspot_editor.xml" />
 	<include url="polygonalhotspot_editor.xml" />
+	<include url="polyline_editor.xml" />
 	<include url="numbers.xml" />
 	<include url="scrollingtext.xml" />
 	<include url="grid.xml" />
@@ -9,6 +10,7 @@
 	
 	<action name="startup" autorun="onstart">
 		init_skyline_editor();
+		init_polyline_editor();
 	</action>
 	
 	<toolbox
@@ -28,7 +30,6 @@
 	<!-- press T to	show the toolbox -->
 	<events name="tb_keys" keep="true" onkeydown="ToolboxKeys();" />
 	<action name="ToolboxKeys" scope="private:toolbox">
-		<!--   trace(get(global.keycode)); -->
 		if(global.keycode == 84, ShowToolbox(global.layer[tb_container].alpha)); <!-- T Toolbox -->
         if(global.keycode == 77, ToolBoxHome());      <!-- M Menu/Home -->
 		if(global.keycode == 76, ToolboxPrint());     <!-- L Log -->
@@ -36,6 +37,7 @@
 		if(global.keycode == 83, ShowStickies());     <!-- S Stickies -->
         if(global.keycode == 71, ShowGrid());         <!-- G  Grid -->
         if(global.keycode == 75, toggle_skyline_editor());  <!-- K Skyline Editor -->
+		if(global.keycode == 88, toggle_polyline_editor()); <!-- X Polyline Editor -->
         
         if(global.keycode == 68, ShowTool(dhe));      <!-- D distortedhotspot editor -->
         if(global.keycode == 80, ShowTool(phe));      <!-- P polygonalhotspot editor -->

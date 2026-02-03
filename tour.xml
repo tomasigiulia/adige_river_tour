@@ -125,11 +125,11 @@
         plugin[krpanomaps].activatespot(get(xml.scene)); 
     </action>
 
-	<!-- Azione per toggleare hotspot (poligonali + puntuali) -->
+	<!-- Azione per toggleare hotspot (poligonali + puntuali + polyline) -->
 	<action name="toggle_polygonal_hotspots">
 		if(global.polygonal_hotspots_visible == true,
 			forall(hotspot, hs,
-				if(hs.style == 'mypolygonalhotspotstylename' OR hs.style == 'hotspot_info' OR hs.style == 'skyline_label',
+				if(hs.style == 'mypolygonalhotspotstylename' OR hs.style == 'hotspot_info' OR hs.style == 'skyline_label' OR hs.polyline == true OR indexof(hs.name, 'polyline_') == 0,
 					set(hs.visible, false);
 				);
 			);
@@ -138,7 +138,7 @@
 			set(layer[poly_hotspot_toggle_btn].tooltip, 'Hotspot nascosti');
 		,
 			forall(hotspot, hs,
-				if(hs.style == 'mypolygonalhotspotstylename' OR hs.style == 'hotspot_info' OR hs.style == 'skyline_label',
+				if(hs.style == 'mypolygonalhotspotstylename' OR hs.style == 'hotspot_info' OR hs.style == 'skyline_label' OR hs.polyline == true OR indexof(hs.name, 'polyline_') == 0,
 					set(hs.visible, true);
 				);
 			);
@@ -242,6 +242,27 @@
 	       onhover="tween(fillalpha,0.6,0.2); tween(borderwidth,3.5,0.2); tween(fillcolor,0x0099FF,0.2);" 
 	       onout="tween(fillalpha,0.35,0.2); tween(borderwidth,2.5,0.2); tween(fillcolor,0x00A8FF,0.2);" 
 	       ondown="if(device.mobile OR device.tablet, tween(fillcolor,0x0066CC,0.1); tween(fillalpha,0.75,0.1); tween(borderwidth,4.0,0.1); tween(borderalpha,1.0,0.1); delayedcall(0.2, tween(fillcolor,0x00A8FF,0.2); tween(fillalpha,0.35,0.2); tween(borderwidth,2.5,0.2); tween(borderalpha,0.9,0.2); ); );" 
+	/>
+
+	<!-- Stili per linee polyline -->
+	<style name="mypolyline_solid"
+	       type="poly"
+	       distorted="true"
+	       fillalpha="0.0"
+	       borderwidth="2.5"
+	       bordercolor="0xFF6B00"
+	       borderalpha="0.9"
+	       capture="false"
+	/>
+
+	<style name="mypolyline_dashed"
+	       type="poly"
+	       distorted="true"
+	       fillalpha="0.0"
+	       borderwidth="2.5"
+	       bordercolor="0xFF6B00"
+	       borderalpha="0.9"
+	       capture="false"
 	/>
 
 	<!-- Style per etichette skyline/montagne -->
@@ -387,6 +408,38 @@
 		         ath="-125.31705003356589" 
 		         atv="-9.0" 
 		         html="[div style='text-align:center;display:flex;flex-direction:column;align-items:center;'][span style='font-size:12px;opacity:0.9;display:block;margin-bottom:2px;']200 m s.l.m[/span][b style='font-size:18px;display:block;margin-bottom:5px;']COLLINA MORENICA[/b][img src='hotspots/arrow_down.svg' style='display:block;width:30px;height:50px;'][/img][/div]" 
+		/>
+
+		<!-- POLYLINE GENERATA DAL POLYLINE EDITOR -->
+		<hotspot name="polyline_1" polyline="true" borderwidth="8.0" bordercolor="0xFF6B00" borderalpha="0.9" distorted="true">
+			<point ath="-102.7327328470365" atv="39.78205389235683"/>
+			<point ath="-100.46703703092314" atv="32.37897654310782"/>
+			<point ath="-98.38590440862309" atv="27.15857007171378"/>
+			<point ath="-96.02069678244038" atv="23.185233614795933"/>
+			<point ath="-93.79720789024356" atv="19.967835548824482"/>
+			<point ath="-90.99857941180032" atv="18.15341304986831"/>
+			<point ath="-88.77704173568816" atv="16.039773238001"/>
+			<point ath="-84.46556394173835" atv="13.356147368796426"/>
+			<point ath="-80.99108352651051" atv="11.602039016839862"/>
+			<point ath="-76.62372587255349" atv="9.658516401628326"/>
+			<point ath="-73.28294139241905" atv="8.061878705983592"/>
+			<point ath="-69.91308141839927" atv="6.554500739381611"/>
+			<point ath="-67.8876103429127" atv="6.383053820977823"/>
+			<point ath="-65.02463923797245" atv="6.027669627840057"/>
+			<point ath="-62.785560848317076" atv="5.1191395419234595"/>
+			<point ath="-61.16980043000601" atv="4.311376718352756"/>
+		</hotspot>
+
+		<!-- Etichetta per polyline_1 -->
+		<hotspot name="polyline_1_label" 
+		         type="text" 
+		         distorted="true" 
+		         ath="-102.73" 
+		         atv="44.0" 
+		         html="limite&lt;br/&gt;deposito&lt;br/&gt;morenico" 
+		         css="font-family:Arial; font-size:20px; font-weight:bold; color:#FF6B00; text-shadow:1px 1px 3px #000000, -1px -1px 3px #000000; line-height:1.3; text-align:center;" 
+		         bg="false" 
+		         alpha="1.0" 
 		/>
 
 	</scene>
