@@ -129,7 +129,7 @@
 	<action name="toggle_polygonal_hotspots">
 		if(global.polygonal_hotspots_visible == true,
 			forall(hotspot, hs,
-				if(hs.style == 'mypolygonalhotspotstylename' OR hs.style == 'hotspot_info',
+				if(hs.style == 'mypolygonalhotspotstylename' OR hs.style == 'hotspot_info' OR hs.style == 'skyline_label',
 					set(hs.visible, false);
 				);
 			);
@@ -138,7 +138,7 @@
 			set(layer[poly_hotspot_toggle_btn].tooltip, 'Hotspot nascosti');
 		,
 			forall(hotspot, hs,
-				if(hs.style == 'mypolygonalhotspotstylename' OR hs.style == 'hotspot_info',
+				if(hs.style == 'mypolygonalhotspotstylename' OR hs.style == 'hotspot_info' OR hs.style == 'skyline_label',
 					set(hs.visible, true);
 				);
 			);
@@ -150,7 +150,7 @@
 
 	<action name="reset_hotspot_visibility">
 		forall(hotspot, hs,
-			if(hs.style == 'mypolygonalhotspotstylename' OR hs.style == 'hotspot_info',
+			if(hs.style == 'mypolygonalhotspotstylename' OR hs.style == 'hotspot_info' OR hs.style == 'skyline_label',
 				set(hs.visible, true);
 			);
 		);
