@@ -163,6 +163,30 @@
 
 	<style name="mypolygonalhotspotstylename" fillcolor="0x999999" fillalpha="0.25" borderwidth="2.0" bordercolor="0xFFFFFF" borderalpha="1.0" capture="false" onhover="tween(fillalpha,0.5);" onout="tween(fillalpha,0.25);" ondown="if(device.mobile OR device.tablet, tween(fillalpha,0.7,0.1); tween(borderwidth,3.5,0.1); delayedcall(0.15, tween(fillalpha,0.5,0.1); tween(borderwidth,2.0,0.1); ); );" />
 
+	<!-- Style per etichette skyline/montagne -->
+	<style name="skyline_label" 
+	       type="text" 
+	       distorted="true" 
+	       capture="false" 
+	       enabled="false"
+	       handcursor="false"
+	       width="220" 
+	       height="120" 
+	       css="text-align:center; color:#FFFFFF; font-family:Arial,sans-serif; font-size:14px; text-shadow: 2px 2px 4px #000000;" 
+	       bgcolor="0x000000" 
+	       bgalpha="0.0" 
+	       bgroundedge="0"
+	       vcenter="false"
+	       edge="center"
+	       ox="0"
+	       oy="0"
+	       rx="0"
+	       ry="0"
+	       rz="0"
+	       scale="1.0"
+	       zorder="100"
+	/>
+
 	<!-- Variabile globale per controllo visibilità hotspot -->
 	<set var="global.polygonal_hotspots_visible" value="true" />
 
@@ -254,6 +278,14 @@
 			<point ath="94.58792587735796" atv="57.013832188493915" />
 			<point ath="92.94155290730463" atv="37.200529744976585" />
 		</hotspot>
+
+		<!-- Etichetta skyline -->
+		<hotspot name="skyline_collina_morenica" 
+		         style="skyline_label" 
+		         ath="-125.31705003356589" 
+		         atv="-10.626849802669406" 
+		         html="[div style='text-align:center;display:flex;flex-direction:column;align-items:center;'][span style='font-size:12px;opacity:0.9;display:block;margin-bottom:2px;']200 m s.l.m[/span][b style='font-size:18px;display:block;margin-bottom:5px;']COLLINA MORENICA[/b][img src='hotspots/arrow_down.svg' style='display:block;width:30px;height:50px;'][/img][/div]" 
+		/>
 
 	</scene>
 	

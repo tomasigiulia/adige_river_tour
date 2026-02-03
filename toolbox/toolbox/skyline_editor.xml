@@ -1,0 +1,397 @@
+<krpano>
+	<!-- ===== SKYLINE EDITOR TOOLBOX ===== -->
+	<!-- Editor visuale per posizionare etichette skyline nel tour -->
+	
+	<!-- Stile per etichette skyline -->
+	<style name="skyline_label" 
+	       type="text" 
+	       distorted="true" 
+	       capture="false" 
+	       enabled="false"
+	       width="220"
+	       height="120"
+	       css="text-align:center; color:#FFFFFF; font-family:Arial,sans-serif; font-size:14px; text-shadow: 2px 2px 4px #000000;" 
+	       bgcolor="0x000000"
+	       bgalpha="0.0"
+	       edge="center"
+	       zorder="100"
+	/>
+	
+	<!-- Variabili globali per l'editor -->
+	<action name="init_skyline_editor">
+		set(global.skyline_editor_active, false);
+		set(global.skyline_counter, 1);
+		set(global.skyline_selected, null);
+		set(global.skyline_drag_mode, false);
+	</action>
+	
+	<!-- Attiva/Disattiva editor skyline -->
+	<action name="toggle_skyline_editor">
+		if(global.skyline_editor_active == true,
+			set(global.skyline_editor_active, false);
+			set(layer[skyline_editor_panel].visible, false);
+			trace('Skyline Editor CHIUSO');
+		,
+			set(global.skyline_editor_active, true);
+			set(layer[skyline_editor_panel].visible, true);
+			trace('Skyline Editor APERTO - Usa i pulsanti per aggiungere etichette');
+		);
+	</action>
+	
+	<!-- Aggiungi nuova etichetta -->
+	<action name="add_skyline_label">
+		txtadd(hotspot_name, 'skyline_label_', get(global.skyline_counter));
+		
+		addhotspot(get(hotspot_name));
+		set(hotspot[get(hotspot_name)].type, text);
+		set(hotspot[get(hotspot_name)].distorted, true);
+		set(hotspot[get(hotspot_name)].capture, false);
+		set(hotspot[get(hotspot_name)].enabled, false);
+		set(hotspot[get(hotspot_name)].width, 220);
+		set(hotspot[get(hotspot_name)].height, 120);
+		set(hotspot[get(hotspot_name)].css, 'text-align:center; color:#FFFFFF; font-family:Arial,sans-serif; font-size:14px; text-shadow: 2px 2px 4px #000000;');
+		set(hotspot[get(hotspot_name)].bgcolor, 0x000000);
+		set(hotspot[get(hotspot_name)].bgalpha, 0.0);
+		set(hotspot[get(hotspot_name)].edge, center);
+		set(hotspot[get(hotspot_name)].zorder, 100);
+		
+		copy(hotspot[get(hotspot_name)].ath, view.hlookat);
+		copy(hotspot[get(hotspot_name)].atv, view.vlookat);
+		
+		txtadd(label_text, 'ETICHETTA ', get(global.skyline_counter));
+		txtadd(html_content, '[div style=&quot;text-align:center;display:flex;flex-direction:column;align-items:center;&quot;][span style=&quot;font-size:12px;opacity:0.9;display:block;margin-bottom:2px;&quot;]1.5km - 3 min[br/]800m - 15 min[/span][b style=&quot;font-size:18px;display:block;margin-bottom:5px;&quot;]', get(label_text), '[/b][img src=&quot;hotspots/arrow_down.svg&quot; style=&quot;display:block;width:30px;height:50px;&quot;][/img][/div]');
+		set(hotspot[get(hotspot_name)].html, get(html_content));
+		
+		txtadd(marker_name, 'skyline_marker_', get(global.skyline_counter));
+		addhotspot(get(marker_name));
+		set(hotspot[get(marker_name)].url, 'hotspots/info.svg');
+		set(hotspot[get(marker_name)].scale, 0.3);
+		set(hotspot[get(marker_name)].alpha, 0.0);
+		set(hotspot[get(marker_name)].edge, center);
+		set(hotspot[get(marker_name)].capture, true);
+		set(hotspot[get(marker_name)].handcursor, true);
+		set(hotspot[get(marker_name)].zorder, 1000);
+		copy(hotspot[get(marker_name)].ath, hotspot[get(hotspot_name)].ath);
+		copy(hotspot[get(marker_name)].atv, hotspot[get(hotspot_name)].atv);
+		
+		txtadd(marker_onclick, 'select_skyline_label(', get(hotspot_name), ');');
+		set(hotspot[get(marker_name)].onclick, get(marker_onclick));
+		set(hotspot[get(marker_name)].ondown, 'set(global.skyline_drag_mode, true); start_drag_skyline();');
+		set(hotspot[get(marker_name)].onup, 'stop_drag_skyline();');
+		
+		set(hotspot[get(hotspot_name)].marker_name, get(marker_name));
+		set(hotspot[get(marker_name)].label_name, get(hotspot_name));
+		
+		inc(global.skyline_counter);
+		
+		txtadd(msg, 'Etichetta ', get(label_text), ' aggiunta! Trascinala per posizionarla.');
+		trace(get(msg));
+		set(layer[skyline_info_text].html, get(msg));
+	</action>
+	
+	<!-- Seleziona etichetta -->
+	<action name="select_skyline_label">
+		set(global.skyline_selected, %1);
+		
+		forall(hotspot, hs,
+			if(indexof(hs.name, 'skyline_marker_') == 0,
+				if(hs.label_name == %1,
+					set(hs.alpha, 1.0);
+					set(hs.scale, 0.4);
+				,
+					set(hs.alpha, 0.7);
+					set(hs.scale, 0.3);
+				);
+			);
+		);
+		
+		trace('Etichetta selezionata: %1');
+		set(layer[skyline_info_text].html, 'Selezionata: %1 - Trascina il marker per spostarla');
+	</action>
+	
+	<!-- Sistema drag per spostare etichette -->
+	<action name="start_drag_skyline">
+		copy(global.skyline_dragging, name);
+		asyncloop(global.skyline_drag_mode, 
+			copy(marker_name, global.skyline_dragging);
+			screentosphere(mouse.x, mouse.y, new_ath, new_atv);
+			set(hotspot[get(marker_name)].ath, get(new_ath));
+			set(hotspot[get(marker_name)].atv, get(new_atv));
+			copy(label_name, hotspot[get(marker_name)].label_name);
+			set(hotspot[get(label_name)].ath, get(new_ath));
+			set(hotspot[get(label_name)].atv, get(new_atv));
+		);
+	</action>
+	
+	<action name="stop_drag_skyline">
+		set(global.skyline_drag_mode, false);
+	</action>
+	
+	<!-- Copia codice etichetta selezionata -->
+	<action name="copy_skyline_code">
+		if(global.skyline_selected != null,
+			copy(hs_name, global.skyline_selected);
+			copy(hs_ath, hotspot[get(hs_name)].ath);
+			copy(hs_atv, hotspot[get(hs_name)].atv);
+			
+			trace('========================================');
+			trace('CODICE ETICHETTA SKYLINE');
+			trace('========================================');
+			trace('Copia questo codice nella scena desiderata:');
+			trace('');
+			trace(calc('Nome: ' + hs_name));
+			trace(calc('ATH: ' + hs_ath));
+			trace(calc('ATV: ' + hs_atv));
+			trace('');
+			trace('Esempio codice hotspot:');
+			trace('style=skyline_label');
+			trace('html=[div][b]NOME MONTAGNA[/b][/div]');
+			trace('========================================');
+			
+			txtadd(output, 'ATH: ', get(hs_ath), '[br/]ATV: ', get(hs_atv), '[br/]Nome: ', get(hs_name), '[br/]Vedi console F12 per dettagli');
+			set(layer[skyline_code_output].html, get(output));
+			set(layer[skyline_code_output].visible, true);
+			set(layer[skyline_info_text].html, 'Codice copiato nella console! Premi F12 per vederlo.');
+		,
+			trace('ERRORE: Nessuna etichetta selezionata');
+			set(layer[skyline_info_text].html, 'ERRORE: Seleziona prima una etichetta!');
+		);
+	</action>
+	
+	<!-- Elimina etichetta selezionata -->
+	<action name="delete_skyline_label">
+		if(global.skyline_selected != null,
+			copy(hs_name, global.skyline_selected);
+			copy(marker_name, hotspot[get(hs_name)].marker_name);
+			
+			removehotspot(get(hs_name));
+			removehotspot(get(marker_name));
+			
+			set(global.skyline_selected, null);
+			
+			trace(calc('Etichetta ' + hs_name + ' eliminata'));
+			set(layer[skyline_info_text].html, calc('Etichetta ' + hs_name + ' eliminata'));
+		,
+			trace('ERRORE: Nessuna etichetta selezionata');
+			set(layer[skyline_info_text].html, 'ERRORE: Seleziona prima una etichetta!');
+		);
+	</action>
+	
+	<!-- Nascondi tutti i marker -->
+	<action name="hide_skyline_markers">
+		forall(hotspot, hs,
+			if(indexof(hs.name, 'skyline_marker_') == 0,
+				set(hs.visible, false);
+			);
+		);
+		set(layer[skyline_info_text].html, 'Marker nascosti - Solo etichette visibili');
+	</action>
+	
+	<!-- Mostra tutti i marker -->
+	<action name="show_skyline_markers">
+		forall(hotspot, hs,
+			if(indexof(hs.name, 'skyline_marker_') == 0,
+				set(hs.visible, true);
+			);
+		);
+		set(layer[skyline_info_text].html, 'Marker visibili');
+	</action>
+	
+	<!-- Panel dell'editor -->
+	<layer name="skyline_editor_panel" 
+	       type="container"
+	       align="righttop"
+	       x="10"
+	       y="80"
+	       width="320"
+	       height="450"
+	       bgcolor="0x000000"
+	       bgalpha="0.85"
+	       bgroundedge="10"
+	       bgborder="2 0x00AAFF 0.8"
+	       bgshadow="0 4 15 0x000000 0.5"
+	       visible="false"
+	       keep="true"
+	       zorder="10000"
+	>
+		<!-- Titolo -->
+		<layer name="skyline_title"
+		       type="text"
+		       align="lefttop"
+		       x="15"
+		       y="15"
+		       width="290"
+		       height="30"
+		       css="color:#00AAFF; font-size:18px; font-weight:bold; font-family:Arial;"
+		       html="Skyline Editor"
+		       bg="false"
+		/>
+		
+		<!-- Descrizione -->
+		<layer name="skyline_desc"
+		       type="text"
+		       align="lefttop"
+		       x="15"
+		       y="45"
+		       width="290"
+		       height="40"
+		       css="color:#CCCCCC; font-size:12px; font-family:Arial;"
+		       html="Aggiungi etichette skyline, spostale e copia il codice"
+		       bg="false"
+		/>
+		
+		<!-- Pulsante: Aggiungi Etichetta -->
+		<layer name="btn_add_skyline"
+		       type="text"
+		       align="lefttop"
+		       x="15"
+		       y="90"
+		       width="290"
+		       height="35"
+		       bgcolor="0x00AA00"
+		       bgalpha="0.8"
+		       bgroundedge="5"
+		       css="color:#FFFFFF; font-size:14px; font-weight:bold; font-family:Arial; text-align:center; padding-top:8px;"
+		       html="+ Aggiungi Nuova Etichetta"
+		       handcursor="true"
+		       onclick="add_skyline_label();"
+		       onover="tween(bgalpha, 1.0);"
+		       onout="tween(bgalpha, 0.8);"
+		/>
+		
+		<!-- Pulsante: Copia Codice -->
+		<layer name="btn_copy_code"
+		       type="text"
+		       align="lefttop"
+		       x="15"
+		       y="135"
+		       width="140"
+		       height="35"
+		       bgcolor="0x0088FF"
+		       bgalpha="0.8"
+		       bgroundedge="5"
+		       css="color:#FFFFFF; font-size:13px; font-weight:bold; font-family:Arial; text-align:center; padding-top:8px;"
+		       html="Copia Codice"
+		       handcursor="true"
+		       onclick="copy_skyline_code();"
+		       onover="tween(bgalpha, 1.0);"
+		       onout="tween(bgalpha, 0.8);"
+		/>
+		
+		<!-- Pulsante: Elimina -->
+		<layer name="btn_delete_skyline"
+		       type="text"
+		       align="lefttop"
+		       x="165"
+		       y="135"
+		       width="140"
+		       height="35"
+		       bgcolor="0xFF3333"
+		       bgalpha="0.8"
+		       bgroundedge="5"
+		       css="color:#FFFFFF; font-size:13px; font-weight:bold; font-family:Arial; text-align:center; padding-top:8px;"
+		       html="Elimina"
+		       handcursor="true"
+		       onclick="delete_skyline_label();"
+		       onover="tween(bgalpha, 1.0);"
+		       onout="tween(bgalpha, 0.8);"
+		/>
+		
+		<!-- Pulsante: Nascondi Marker -->
+		<layer name="btn_hide_markers"
+		       type="text"
+		       align="lefttop"
+		       x="15"
+		       y="180"
+		       width="140"
+		       height="35"
+		       bgcolor="0x666666"
+		       bgalpha="0.8"
+		       bgroundedge="5"
+		       css="color:#FFFFFF; font-size:12px; font-family:Arial; text-align:center; padding-top:8px;"
+		       html="Nascondi Marker"
+		       handcursor="true"
+		       onclick="hide_skyline_markers();"
+		       onover="tween(bgalpha, 1.0);"
+		       onout="tween(bgalpha, 0.8);"
+		/>
+		
+		<!-- Pulsante: Mostra Marker -->
+		<layer name="btn_show_markers"
+		       type="text"
+		       align="lefttop"
+		       x="165"
+		       y="180"
+		       width="140"
+		       height="35"
+		       bgcolor="0x666666"
+		       bgalpha="0.8"
+		       bgroundedge="5"
+		       css="color:#FFFFFF; font-size:12px; font-family:Arial; text-align:center; padding-top:8px;"
+		       html="Mostra Marker"
+		       handcursor="true"
+		       onclick="show_skyline_markers();"
+		       onover="tween(bgalpha, 1.0);"
+		       onout="tween(bgalpha, 0.8);"
+		/>
+		
+		<!-- Area info -->
+		<layer name="skyline_info_text"
+		       type="text"
+		       align="lefttop"
+		       x="15"
+		       y="225"
+		       width="290"
+		       height="50"
+		       bgcolor="0x333333"
+		       bgalpha="0.5"
+		       bgroundedge="5"
+		       css="color:#FFFFFF; font-size:11px; font-family:Arial; padding:8px;"
+		       html="Premi Aggiungi per creare una nuova etichetta"
+		       bg="true"
+		/>
+		
+		<!-- Output codice -->
+		<layer name="skyline_code_output"
+		       type="text"
+		       align="lefttop"
+		       x="15"
+		       y="285"
+		       width="290"
+		       height="130"
+		       bgcolor="0x111111"
+		       bgalpha="0.9"
+		       bgroundedge="5"
+		       css="color:#00FF00; font-size:10px; font-family:monospace; padding:8px;"
+		       html="Il codice apparira qui..."
+		       bg="true"
+		       visible="false"
+		/>
+		
+		<!-- Pulsante Chiudi -->
+		<layer name="btn_close_skyline"
+		       type="text"
+		       align="lefttop"
+		       x="15"
+		       y="425"
+		       width="290"
+		       height="35"
+		       bgcolor="0x444444"
+		       bgalpha="0.8"
+		       bgroundedge="5"
+		       css="color:#FFFFFF; font-size:13px; font-weight:bold; font-family:Arial; text-align:center; padding-top:8px;"
+		       html="Chiudi Editor"
+		       handcursor="true"
+		       onclick="toggle_skyline_editor();"
+		       onover="tween(bgalpha, 1.0);"
+		       onout="tween(bgalpha, 0.8);"
+		/>
+	</layer>
+	
+	<!-- Inizializza al caricamento -->
+	<events name="skyline_init" onloadcomplete="init_skyline_editor();" />
+	
+	<!-- Keyboard shortcut: Premi K per aprire Skyline Editor -->
+	<events name="skyline_keyboard" onkeydown="if(keycode == 75, toggle_skyline_editor());" />
+	
+</krpano>

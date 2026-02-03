@@ -5,6 +5,11 @@
 	<include url="scrollingtext.xml" />
 	<include url="grid.xml" />
 	<include url="stickies.xml" />
+	<include url="skyline_editor.xml" />
+	
+	<action name="startup" autorun="onstart">
+		init_skyline_editor();
+	</action>
 	
 	<toolbox
 			 align="lefttop"
@@ -30,6 +35,7 @@
 		if(global.keycode == 73, ToolboxHelp());      <!-- I Info -->
 		if(global.keycode == 83, ShowStickies());     <!-- S Stickies -->
         if(global.keycode == 71, ShowGrid());         <!-- G  Grid -->
+        if(global.keycode == 75, toggle_skyline_editor());  <!-- K Skyline Editor -->
         
         if(global.keycode == 68, ShowTool(dhe));      <!-- D distortedhotspot editor -->
         if(global.keycode == 80, ShowTool(phe));      <!-- P polygonalhotspot editor -->
