@@ -107,7 +107,7 @@
         caller.zoomtospotsextent();
     </action>
 
-	<events onnewscene="close_popup();scene_activate_spot();update_scene_titles();reset_hotspot_visibility();delayedcall(1.0, pulse_polygonal_hotspots());delayedcall(0.5, animate_skyline_labels());" oncontrolbardown="close_popup();"/>
+	<events onnewscene="close_popup();scene_activate_spot();update_scene_titles();reset_hotspot_visibility();delayedcall(0.5, animate_skyline_labels());" oncontrolbardown="close_popup();"/>
 		<!-- Azione per aggiornare i titoli delle scene in base alla lingua -->
 		<action name="update_scene_titles" scope="local">
 			set(scene[scene_panorama1].title, get(languages[get(language)].scene1_title));
@@ -241,7 +241,7 @@
 	       handcursor="true"
 	       onhover="tween(fillalpha,0.6,0.2); tween(borderwidth,3.5,0.2); tween(fillcolor,0x0099FF,0.2);" 
 	       onout="tween(fillalpha,0.35,0.2); tween(borderwidth,2.5,0.2); tween(fillcolor,0x00A8FF,0.2);" 
-	       ondown="if(device.mobile OR device.tablet, stop_pulse_polygonal_hotspots(); tween(fillcolor,0x0088FF,0.1); tween(fillalpha,0.85,0.1); tween(borderwidth,4.5,0.1); tween(borderalpha,1.0,0.1); delayedcall(0.2, tween(fillcolor,0x00A8FF,0.15); tween(fillalpha,0.50,0.15); tween(borderwidth,2.5,0.15); tween(borderalpha,0.9,0.15); delayedcall(0.3, call(pulse_polygonal_hotspots); ); ); );" 
+	       ondown="if(device.mobile OR device.tablet, tween(fillcolor,0x0066CC,0.1); tween(fillalpha,0.75,0.1); tween(borderwidth,4.0,0.1); tween(borderalpha,1.0,0.1); delayedcall(0.2, tween(fillcolor,0x00A8FF,0.2); tween(fillalpha,0.35,0.2); tween(borderwidth,2.5,0.2); tween(borderalpha,0.9,0.2); ); );" 
 	/>
 
 	<!-- Style per etichette skyline/montagne -->
