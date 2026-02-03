@@ -411,7 +411,7 @@
 		/>
 
 		<!-- POLYLINE GENERATA DAL POLYLINE EDITOR -->
-		<hotspot name="polyline_1" polyline="true" borderwidth="8.0" bordercolor="0xFF6B00" borderalpha="0.9" distorted="true">
+		<hotspot name="polyline_1" polyline="true" borderwidth="8.0" bordercolor="0xFF6B00" borderalpha="0.9" borderdash="10,5" distorted="true">
 			<point ath="-102.7327328470365" atv="39.78205389235683"/>
 			<point ath="-100.46703703092314" atv="32.37897654310782"/>
 			<point ath="-98.38590440862309" atv="27.15857007171378"/>
@@ -425,9 +425,7 @@
 			<point ath="-73.28294139241905" atv="8.061878705983592"/>
 			<point ath="-69.91308141839927" atv="6.554500739381611"/>
 			<point ath="-67.8876103429127" atv="6.383053820977823"/>
-			<point ath="-65.02463923797245" atv="6.027669627840057"/>
-			<point ath="-62.785560848317076" atv="5.1191395419234595"/>
-			<point ath="-61.16980043000601" atv="4.311376718352756"/>
+			
 		</hotspot>
 
 		<!-- Etichetta per polyline_1 -->
