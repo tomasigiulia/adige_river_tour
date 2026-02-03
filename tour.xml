@@ -261,22 +261,42 @@
 		</image>
 
 		<!-- HOTSPOT poligonale nella scena -->
-		<hotspot name="hs1" style="mypolygonalhotspotstylename" onclick="open_popup(get(languages[get(language)].h5_t), get(languages[get(language)].h5_c), 'hotspots/Salix alba.JPG');">
-			<point ath="92.11045248080157" atv="32.29934276364675" />
-			<point ath="102.41142239771153" atv="20.111408883391213" />
-			<point ath="109.22938380805141" atv="19.88213065368868" />
-			<point ath="120.73952000577172" atv="25.883480848605437" />
-			<point ath="133.39499923656606" atv="33.53642663051503" />
-			<point ath="150.69934086268873" atv="45.69271152246624" />
-			<point ath="167.60221765162578" atv="52.98419878576132" />
-			<point ath="-157.7280178949661" atv="55.13910180320656" />
-			<point ath="-114.1886698619505" atv="54.48032423568869" />
-			<point ath="-99.27938119813109" atv="54.53013597357032" />
-			<point ath="-90.69247815235076" atv="54.77110934478049" />
-			<point ath="-96.72401106885431" atv="71.04624566106551" />
-			<point ath="70.43054792480393" atv="87.03010898362756" />
-			<point ath="94.58792587735796" atv="57.013832188493915" />
-			<point ath="92.94155290730463" atv="37.200529744976585" />
+		<hotspot name="hs1" style="mypolygonalhotspotstylename" onclick="open_popup(get(languages[get(language)].h6_t), get(languages[get(language)].h6_c), 'hotspots/prati aridi.jpg');" >
+		</hotspot>
+
+		<hotspot name="hs2" style="mypolygonalhotspotstylename" onclick="open_popup(get(languages[get(language)].h6_t), get(languages[get(language)].h6_c), 'hotspots/prati aridi.jpg');" >
+			<point ath="-97.95485045880821" atv="4.336600698234592" />
+			<point ath="-96.9618640098662" atv="1.8392380282370844" />
+			<point ath="-98.4398604355314" atv="0.9976987428904046" />
+			<point ath="-98.7296290030633" atv="-0.0893015312632596" />
+			<point ath="-97.32962491451006" atv="-0.8394284757076685" />
+			<point ath="-84.9374911916442" atv="5.3845168928921" />
+			<point ath="-82.49997723883828" atv="7.2415975070319805" />
+			<point ath="-84.01740226884507" atv="8.689253916525534" />
+			<point ath="-89.31343504213653" atv="9.122976546163246" />
+			<point ath="-92.6305441414462" atv="9.632426849490995" />
+			<point ath="-93.828936179247" atv="7.011186274519499" />
+			<point ath="-95.66626592393389" atv="4.827228529248112" />
+		</hotspot>
+
+		<hotspot name="hs3" style="mypolygonalhotspotstylename" onclick="open_popup(get(languages[get(language)].h6_t), get(languages[get(language)].h6_c), 'hotspots/prati aridi.jpg');" >
+		</hotspot>
+
+		<hotspot name="hs4" style="mypolygonalhotspotstylename" onclick="open_popup(get(languages[get(language)].h6_t), get(languages[get(language)].h6_c), 'hotspots/prati aridi.jpg');" >
+			<point ath="-86.27589589922532" atv="-3.020988967887368" />
+			<point ath="-84.24525570916884" atv="-3.2847891466827144" />
+			<point ath="-82.96969438342747" atv="-2.4668764158819885" />
+			<point ath="-82.24822282813774" atv="-1.2904143982814156" />
+			<point ath="-81.02326329759443" atv="-0.5176547506933842" />
+			<point ath="-79.23836650888846" atv="1.433437508028738" />
+			<point ath="-77.43701917288274" atv="2.4669013551399708" />
+			<point ath="-81.14449842019691" atv="2.348392112136245" />
+			<point ath="-82.03363757108492" atv="2.706563726386906" />
+			<point ath="-84.0454391145854" atv="0.8621003379005009" />
+			<point ath="-83.62661094995534" atv="-0.08177355266657406" />
+			<point ath="-83.33293017539397" atv="-1.014275724937179" />
+			<point ath="-84.62516096856895" atv="-2.197578202794747" />
+			<point ath="-85.53493505571706" atv="-2.650267583715676" />
 		</hotspot>
 
 		<!-- Etichetta skyline -->
@@ -335,7 +355,7 @@
 	/>
 	</scene>
 
-	<scene name="scene_pano_0001_panorama_panorama" title="get(languages[get(language)].scene4_title)" onstart="" thumburl="panos/PANO_0001_Panorama_Panorama.tiles/thumb.jpg" lat="45.19941917" lng="11.30099139" alt="63.42" heading="0.0">
+	<scene name="scene_pano_0001_panorama_panorama" title="get(languages[get(language)].scene4_title)" onstart="" thumburl="panos/PANO_0001_Panorama_Panorama.tiles/preview.jpg" lat="45.19941917" lng="11.30099139" alt="63.42" heading="0.0">
 		
 			<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -346,6 +366,16 @@
 			<image>
 			<cube url="panos/PANO_0001_Panorama_Panorama.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,768,1536,3072,5888" />
 			</image>
+
+			<!-- HOTSPOT nella scena - Saliceto -->
+			<hotspot name="info5"
+			style="hotspot_info"
+			ath="-72.07"
+			atv="33.67"
+			onover="if(device.desktop, set(css, 'color:#0099FF;'); set(url, 'hotspots/info_hover.svg'); tween(scale,0.36); )"
+			onout="if(device.desktop, set(css, 'color:#bbbbbb;'); set(url, 'hotspots/info.svg'); tween(scale,0.26); )"
+			onclick="if(device.mobile OR device.tablet, tween(scale,0.9,0.15,easeInOutQuad); set(css, 'color:#0099FF; box-shadow:0 0 12px #0099FF;'); delayedcall(0.3, tween(scale,0.5,0.15,easeInOutQuad); set(css, 'color:#bbbbbb; box-shadow:none;'); ); ); open_popup(get(languages[get(language)].h5_t), get(languages[get(language)].h5_c), 'hotspots/Salix alba.JPG');"
+			/>
 
 	</scene>
 
