@@ -12,9 +12,9 @@
 	</action>
 	
 	<toolbox
-			 align="lefttop"
+			 align="leftbottom"
 			 x="10"
-			 y="100"
+			 y="-10"
 			 css="font-family:Helvetica;font-size:12px;color:0xffffff;text-align:center;"
 			 css2="font-family:Helvetica;font-size:10px;color:0xffffff;text-align:center;"
 			 css3="font-family:Helvetica;font-size:14px;color:0xffffff;text-align:left;"	

@@ -225,9 +225,9 @@
 	<!-- Panel dell'editor -->
 	<layer name="skyline_editor_panel" 
 	       type="container"
-	       align="righttop"
+	       align="leftbottom"
 	       x="10"
-	       y="80"
+	       y="-10"
 	       width="320"
 	       height="505"
 	       bgcolor="0x000000"
