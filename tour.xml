@@ -235,7 +235,7 @@
 	       borderwidth="2.5" 
 	       bordercolor="0xFFFFFF" 
 	       borderalpha="0.9" 
-	       capture="true" 
+	       capture="false" 
 	       handcursor="true"
 	       onhover="tween(fillalpha,0.6,0.2); tween(borderwidth,3.5,0.2); tween(fillcolor,0x0099FF,0.2);" 
 	       onout="tween(fillalpha,0.35,0.2); tween(borderwidth,2.5,0.2); tween(fillcolor,0x00A8FF,0.2);" 
