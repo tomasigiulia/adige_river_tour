@@ -107,7 +107,7 @@
         caller.zoomtospotsextent();
     </action>
 
-	<events onnewscene="close_popup();scene_activate_spot();update_scene_titles();reset_hotspot_visibility();" oncontrolbardown="close_popup();"/>
+	<events onnewscene="close_popup();scene_activate_spot();update_scene_titles();reset_hotspot_visibility();delayedcall(1.0, pulse_polygonal_hotspots());delayedcall(0.5, animate_skyline_labels());" oncontrolbardown="close_popup();" onviewchange="stop_pulse_polygonal_hotspots();"/>
 		<!-- Azione per aggiornare i titoli delle scene in base alla lingua -->
 		<action name="update_scene_titles" scope="local">
 			set(scene[scene_panorama1].title, get(languages[get(language)].scene1_title));
@@ -159,9 +159,88 @@
 		set(layer[poly_hotspot_toggle_btn].tooltip, 'Hotspot visibili');
 	</action>
 
+	<!-- Azione per animazione pulsante hotspot su mobile -->
+	<action name="pulse_polygonal_hotspots">
+		if(device.mobile OR device.tablet,
+			forall(hotspot, hs,
+				if(hs.style == 'mypolygonalhotspotstylename' AND hs.visible,
+					set(hs.pulse_active, true);
+					tween(hs.fillalpha, 0.65, 0.8, easeInOutSine);
+					tween(hs.borderwidth, 3.5, 0.8, easeInOutSine);
+					delayedcall(0.8,
+						if(hs.pulse_active,
+							tween(hs.fillalpha, 0.35, 0.8, easeInOutSine);
+							tween(hs.borderwidth, 2.5, 0.8, easeInOutSine);
+							delayedcall(0.8, if(hs.pulse_active, call(pulse_polygonal_hotspots); ); );
+						);
+					);
+				);
+			);
+		);
+	</action>
+
+	<action name="stop_pulse_polygonal_hotspots">
+		forall(hotspot, hs,
+			if(hs.style == 'mypolygonalhotspotstylename',
+				set(hs.pulse_active, false);
+			);
+		);
+	</action>
+
+	<!-- Azione per animazione fade-in delle etichette skyline -->
+	<action name="animate_skyline_labels">
+		forall(hotspot, hs,
+			if(hs.style == 'skyline_label' AND hs.visible,
+				<!-- Fade-in iniziale con scala -->
+				set(hs.alpha, 0);
+				set(hs.scale, 0.7);
+				tween(hs.alpha, 1.0, 1.0, easeOutCubic);
+				tween(hs.scale, 1.0, 1.0, easeOutBack);
+				<!-- Avvia breathing effect dopo fade-in -->
+				delayedcall(1.2, set(hs.breathing_active, true); call(skyline_breathing_effect); );
+			);
+		);
+	</action>
+
+	<!-- Azione per effetto breathing continuo delle etichette skyline -->
+	<action name="skyline_breathing_effect">
+		forall(hotspot, hs,
+			if(hs.style == 'skyline_label' AND hs.visible AND hs.breathing_active,
+				tween(hs.alpha, 0.7, 2.5, easeInOutSine);
+				tween(hs.scale, 0.95, 2.5, easeInOutSine);
+				delayedcall(2.5,
+					if(hs.breathing_active,
+						tween(hs.alpha, 1.0, 2.5, easeInOutSine);
+						tween(hs.scale, 1.0, 2.5, easeInOutSine);
+						delayedcall(2.5, if(hs.breathing_active, call(skyline_breathing_effect); ); );
+					);
+				);
+			);
+		);
+	</action>
+
+	<action name="stop_skyline_breathing">
+		forall(hotspot, hs,
+			if(hs.style == 'skyline_label',
+				set(hs.breathing_active, false);
+			);
+		);
+	</action>
+
 	<style name="hotspot_info" type="image" url="hotspots/info.svg" scale.desktop="0.26" scale.tablet="0.4" scale.mobile="0.5" distorted="false" css="color:#bbbbbb;"/>
 
-	<style name="mypolygonalhotspotstylename" fillcolor="0x999999" fillalpha="0.25" borderwidth="2.0" bordercolor="0xFFFFFF" borderalpha="1.0" capture="false" onhover="tween(fillalpha,0.5);" onout="tween(fillalpha,0.25);" ondown="if(device.mobile OR device.tablet, tween(fillalpha,0.7,0.1); tween(borderwidth,3.5,0.1); delayedcall(0.15, tween(fillalpha,0.5,0.1); tween(borderwidth,2.0,0.1); ); );" />
+	<style name="mypolygonalhotspotstylename" 
+	       fillcolor="0x00A8FF" 
+	       fillalpha="0.35" 
+	       borderwidth="2.5" 
+	       bordercolor="0xFFFFFF" 
+	       borderalpha="0.9" 
+	       capture="true" 
+	       handcursor="true"
+	       onhover="tween(fillalpha,0.6,0.2); tween(borderwidth,3.5,0.2); tween(fillcolor,0x0099FF,0.2);" 
+	       onout="tween(fillalpha,0.35,0.2); tween(borderwidth,2.5,0.2); tween(fillcolor,0x00A8FF,0.2);" 
+	       ondown="if(device.mobile OR device.tablet, stop_pulse_polygonal_hotspots(); tween(fillcolor,0x00FF88,0.1); tween(fillalpha,0.85,0.1); tween(borderwidth,4.5,0.1); tween(borderalpha,1.0,0.1); delayedcall(0.2, tween(fillcolor,0x00A8FF,0.15); tween(fillalpha,0.35,0.15); tween(borderwidth,2.5,0.15); tween(borderalpha,0.9,0.15); delayedcall(0.5, pulse_polygonal_hotspots(); ); ); );" 
+	/>
 
 	<!-- Style per etichette skyline/montagne -->
 	<style name="skyline_label" 
@@ -184,6 +263,7 @@
 	       ry="0"
 	       rz="0"
 	       scale="1.0"
+	       alpha="0"
 	       zorder="100"
 	/>
 
@@ -303,7 +383,7 @@
 		<hotspot name="skyline_collina_morenica" 
 		         style="skyline_label" 
 		         ath="-125.31705003356589" 
-		         atv="-10.626849802669406" 
+		         atv="-9.0" 
 		         html="[div style='text-align:center;display:flex;flex-direction:column;align-items:center;'][span style='font-size:12px;opacity:0.9;display:block;margin-bottom:2px;']200 m s.l.m[/span][b style='font-size:18px;display:block;margin-bottom:5px;']COLLINA MORENICA[/b][img src='hotspots/arrow_down.svg' style='display:block;width:30px;height:50px;'][/img][/div]" 
 		/>
 
