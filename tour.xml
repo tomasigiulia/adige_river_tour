@@ -107,7 +107,7 @@
         caller.zoomtospotsextent();
     </action>
 
-	<events onnewscene="close_popup();scene_activate_spot();update_scene_titles();reset_hotspot_visibility();delayedcall(0.5, animate_skyline_labels());" oncontrolbardown="close_popup();"/>
+	<events onnewscene="close_popup();scene_activate_spot();update_scene_titles();reset_hotspot_visibility();delayedcall(0.5, animate_skyline_labels(); if(xml.scene == 'scene_pano_5', call(animate_polyline_label); ); );" oncontrolbardown="close_popup();"/>
 		<!-- Azione per aggiornare i titoli delle scene in base alla lingua -->
 		<action name="update_scene_titles" scope="local">
 			set(scene[scene_panorama1].title, get(languages[get(language)].scene1_title));
@@ -116,6 +116,9 @@
             set(scene[scene_pano_0001_panorama_panorama].title, get(languages[get(language)].scene4_title));
 			set(scene[scene_pano_5].title, get(languages[get(language)].scene5_title));
 			set(scene[scene_pano_6].title, get(languages[get(language)].scene6_title));
+			set(hotspot[polyline_1_label].html, get(languages[get(language)].polyline_label));
+			set(hotspot[skyline_collina_morenica].html, get(languages[get(language)].skyline_collina_html));
+			set(hotspot[skyline_pianura].html, get(languages[get(language)].skyline_pianura_html));
 			if(global.title, calc(layer[skin_title].html, global.title + ' - ' + scene[get(xml.scene)].title); , copy(layer[skin_title].html, scene[get(xml.scene)].title ); );
 			delayedcall(0.1, set(layer[skin_title].visible,true) );
 		</action>
@@ -407,11 +410,12 @@
 		         style="skyline_label" 
 		         ath="-125.31705003356589" 
 		         atv="-9.0" 
-		         html="[div style='text-align:center;display:flex;flex-direction:column;align-items:center;'][span style='font-size:12px;opacity:0.9;display:block;margin-bottom:2px;']200 m s.l.m[/span][b style='font-size:18px;display:block;margin-bottom:5px;']COLLINA MORENICA[/b][img src='hotspots/arrow_down.svg' style='display:block;width:30px;height:50px;'][/img][/div]" 
+		         html="get(languages[get(language)].skyline_collina_html)" 
 		/>
 
-		<!-- POLYLINE GENERATA DAL POLYLINE EDITOR -->
-		<hotspot name="polyline_1" polyline="true" borderwidth="8.0" bordercolor="0xFF6B00" borderalpha="0.9" distorted="true">
+		<!-- POLYLINE GENERATA DAL POLYLINE EDITOR - EFFETTO SFUMATO CON BORDO LARGO -->
+		<!-- Strato 1: Sfondo scuro -->
+		<hotspot name="polyline_1_layer1" polyline="true" borderwidth="12.0" bordercolor="0x333333" borderalpha="0.2" distorted="true">
 			<point ath="-102.7327328470365" atv="39.78205389235683"/>
 			<point ath="-100.46703703092314" atv="32.37897654310782"/>
 			<point ath="-98.38590440862309" atv="27.15857007171378"/>
@@ -425,20 +429,92 @@
 			<point ath="-73.28294139241905" atv="8.061878705983592"/>
 			<point ath="-69.91308141839927" atv="6.554500739381611"/>
 			<point ath="-67.8876103429127" atv="6.383053820977823"/>
+		</hotspot>
+		<!-- Strato 2: Sfondo medio -->
+		<hotspot name="polyline_1_layer2" polyline="true" borderwidth="8.5" bordercolor="0xCCCCCC" borderalpha="0.35" distorted="true">
+			<point ath="-102.7327328470365" atv="39.78205389235683"/>
+			<point ath="-100.46703703092314" atv="32.37897654310782"/>
+			<point ath="-98.38590440862309" atv="27.15857007171378"/>
+			<point ath="-96.02069678244038" atv="23.185233614795933"/>
+			<point ath="-93.79720789024356" atv="19.967835548824482"/>
+			<point ath="-90.99857941180032" atv="18.15341304986831"/>
+			<point ath="-88.77704173568816" atv="16.039773238001"/>
+			<point ath="-84.46556394173835" atv="13.356147368796426"/>
+			<point ath="-80.99108352651051" atv="11.602039016839862"/>
+			<point ath="-76.62372587255349" atv="9.658516401628326"/>
+			<point ath="-73.28294139241905" atv="8.061878705983592"/>
+			<point ath="-69.91308141839927" atv="6.554500739381611"/>
+			<point ath="-67.8876103429127" atv="6.383053820977823"/>
+		</hotspot>
+		<!-- Strato 3: Linea bianca principale -->
+		<hotspot name="polyline_1" polyline="true" borderwidth="4.0" bordercolor="0xFFFFFF" borderalpha="0.7" distorted="true">
+			<point ath="-102.7327328470365" atv="39.78205389235683"/>
+			<point ath="-100.46703703092314" atv="32.37897654310782"/>
+			<point ath="-98.38590440862309" atv="27.15857007171378"/>
+			<point ath="-96.02069678244038" atv="23.185233614795933"/>
+			<point ath="-93.79720789024356" atv="19.967835548824482"/>
+			<point ath="-88.77704173568816" atv="16.039773238001"/>
+			<point ath="-84.46556394173835" atv="13.356147368796426"/>
+			<point ath="-80.99108352651051" atv="11.602039016839862"/>
+			<point ath="-76.62372587255349" atv="9.658516401628326"/>
+			<point ath="-73.28294139241905" atv="8.061878705983592"/>
+			<point ath="-67.8876103429127" atv="6.383053820977823"/>
+			<point ath="-63.15970878196768" atv="5.135724256636569"/>
 			
 		</hotspot>
 
-		<!-- Etichetta per polyline_1 -->
+		<!-- Etichetta per polyline_1 - BIANCA CON ANIMAZIONE BREATHING -->
 		<hotspot name="polyline_1_label" 
 		         type="text" 
 		         distorted="true" 
 		         ath="-102.73" 
 		         atv="44.0" 
-		         html="limite&lt;br/&gt;deposito&lt;br/&gt;morenico" 
-		         css="font-family:Arial; font-size:20px; font-weight:bold; color:#FF6B00; text-shadow:1px 1px 3px #000000, -1px -1px 3px #000000; line-height:1.3; text-align:center;" 
+		         html="get(languages[get(language)].polyline_label)"
+		         css="font-family:Arial; font-size:20px; font-weight:bold; color:#FFFFFF; text-shadow:1px 1px 3px #000000, -1px -1px 3px #000000; line-height:1.3; text-align:center;" 
 		         bg="false" 
-		         alpha="1.0" 
+		         alpha="1.0"
+		         breathing_active="false"
 		/>
+
+		<!-- Etichetta skyline PIANURA -->
+		<hotspot name="skyline_pianura"
+		         style="skyline_label"
+		         ath="8.93"
+		         atv="2.06"
+		         html="get(languages[get(language)].skyline_pianura_html)"
+		/>
+		<action name="animate_polyline_label">
+			set(hotspot[polyline_1_label].alpha, 0);
+			set(hotspot[polyline_1_label].scale, 0.7);
+			set(hotspot[polyline_1].alpha, 0);
+			set(hotspot[polyline_1_layer1].alpha, 0);
+			set(hotspot[polyline_1_layer2].alpha, 0);
+			tween(hotspot[polyline_1_label].alpha, 1.0, 1.0, easeOutCubic);
+			tween(hotspot[polyline_1_label].scale, 1.0, 1.0, easeOutBack);
+			tween(hotspot[polyline_1].alpha, 0.95, 1.0, easeOutCubic);
+			tween(hotspot[polyline_1_layer1].alpha, 0.3, 1.0, easeOutCubic);
+			tween(hotspot[polyline_1_layer2].alpha, 0.5, 1.0, easeOutCubic);
+			delayedcall(1.2, set(hotspot[polyline_1_label].breathing_active, true); set(hotspot[polyline_1].breathing_active, true); call(polyline_label_breathing); );
+		</action>
+		<action name="polyline_label_breathing">
+			if(hotspot[polyline_1_label].breathing_active,
+				tween(hotspot[polyline_1_label].alpha, 0.7, 4.0, easeInOutSine);
+				tween(hotspot[polyline_1_label].scale, 0.95, 4.0, easeInOutSine);
+				tween(hotspot[polyline_1].alpha, 0.6, 4.0, easeInOutSine);
+				tween(hotspot[polyline_1_layer1].alpha, 0.15, 4.0, easeInOutSine);
+				tween(hotspot[polyline_1_layer2].alpha, 0.3, 4.0, easeInOutSine);
+				delayedcall(4.0,
+					if(hotspot[polyline_1_label].breathing_active,
+						tween(hotspot[polyline_1_label].alpha, 1.0, 4.0, easeInOutSine);
+						tween(hotspot[polyline_1_label].scale, 1.0, 4.0, easeInOutSine);
+						tween(hotspot[polyline_1].alpha, 0.95, 4.0, easeInOutSine);
+						tween(hotspot[polyline_1_layer1].alpha, 0.3, 4.0, easeInOutSine);
+						tween(hotspot[polyline_1_layer2].alpha, 0.5, 4.0, easeInOutSine);
+						delayedcall(4.0, if(hotspot[polyline_1_label].breathing_active, call(polyline_label_breathing); ); );
+					);
+				);
+			);
+		</action>
 
 	</scene>
 	

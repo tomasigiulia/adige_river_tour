@@ -1,10 +1,9 @@
 <krpano>
 	<!-- ===== POLYLINE EDITOR TOOLBOX ===== -->
-	<!-- Editor visuale per disegnare linee continue e tratteggiate -->
+	<!-- Editor visuale per disegnare linee continue -->
 
 	<!-- Stili per linee -->
 	<style name="mypolyline_solid" type="polyline" distorted="true" fillcolor="0xFF6B00" fillalpha="0.0" linecolor="0xFF6B00" linewidth="5.0" linealpha="1.0" visible="true" capture="false" />
-	<style name="mypolyline_dashed" type="polyline" distorted="true" fillcolor="0xFF6B00" fillalpha="0.0" linecolor="0xFF6B00" linewidth="5.0" linealpha="1.0" visible="true" capture="false" />
 
 	<!-- Variabili globali -->
 	<action name="init_polyline_editor">
@@ -14,6 +13,31 @@
 		set(global.polyline_style, 'solid');
 		set(global.polyline_current_name, null);
 		set(global.polyline_point_count, 0);
+		call(init_polyline_counter_from_scene);
+	</action>
+
+	<!-- Inizializza il contatore evitando di sovrascrivere polilinee esistenti -->
+	<action name="init_polyline_counter_from_scene">
+		set(_maxpl, 0);
+		for(set(i, 0), i LT hotspot.count, inc(i),
+			if(indexof(hotspot[get(i)].name, 'polyline_') == 0 AND indexof(hotspot[get(i)].name, '_layer') LT 0,
+				calc(_idx, number(substring(hotspot[get(i)].name, 9)));
+				if(_idx GT _maxpl, set(_maxpl, _idx));
+			);
+		);
+		calc(global.polyline_counter, _maxpl + 1);
+	</action>
+
+	<!-- Trova un nome libero per la nuova polilinea -->
+	<action name="find_free_polyline_name">
+		for(set(_try, 0), _try LT 500, inc(_try),
+			if(hotspot[get(global.polyline_current_name)] !== null,
+				inc(global.polyline_counter);
+				txtadd(global.polyline_current_name, 'polyline_', get(global.polyline_counter));
+			,
+				break();
+			);
+		);
 	</action>
 
 	<!-- Attiva/Disattiva editor -->
@@ -27,26 +51,13 @@
 		);
 	</action>
 
-	<!-- Scegli stile -->
-	<action name="set_polyline_style">
-		if(global.polyline_drawing == true,
-			trace('Non puoi cambiare stile durante il disegno! Finisci prima la linea corrente.');
-		,
-			if(%1,
-				set(global.polyline_style, %1);
-			,
-				set(global.polyline_style, solid);
-			);
-			calc(_plmsg, 'Stile linea: ' + get(global.polyline_style));
-			trace(get(_plmsg));
-		);
-	</action>
-
 	<!-- Inizia nuovo disegno -->
 	<action name="start_polyline_drawing">
 		set(global.polyline_drawing, true);
 		set(global.polyline_point_count, 0);
 		txtadd(global.polyline_current_name, 'polyline_', get(global.polyline_counter));
+		call(find_free_polyline_name);
+		set(global.phedrawing, false);
 		
 		addhotspot(get(global.polyline_current_name));
 		set(hotspot[get(global.polyline_current_name)].polyline, true);
@@ -59,10 +70,6 @@
 		set(hotspot[get(global.polyline_current_name)].bordercolor, 0xFF6B00);
 		set(hotspot[get(global.polyline_current_name)].borderwidth, 8.0);
 		set(hotspot[get(global.polyline_current_name)].borderalpha, 0.9);
-		
-		if(global.polyline_style == 'dashed',
-			set(hotspot[get(global.polyline_current_name)].borderdash, '10,5');
-		);
 		
 		set(global.polyline_drawing, true);
 		set(global.polyline_point_count, 0);
@@ -119,11 +126,7 @@
 
 	<!-- Genera codice XML -->
 	<action name="generate_polyline_code">
-		if(global.polyline_style == 'dashed',
-			calc(polyline_code, '&lt;hotspot name=&quot;' + get(global.polyline_current_name) + '&quot; polyline=&quot;true&quot; borderwidth=&quot;8.0&quot; bordercolor=&quot;0xFF6B00&quot; borderalpha=&quot;0.9&quot; borderdash=&quot;10,5&quot; distorted=&quot;true&quot;&gt;');
-		,
-			calc(polyline_code, '&lt;hotspot name=&quot;' + get(global.polyline_current_name) + '&quot; polyline=&quot;true&quot; borderwidth=&quot;8.0&quot; bordercolor=&quot;0xFF6B00&quot; borderalpha=&quot;0.9&quot; distorted=&quot;true&quot;&gt;');
-		);
+		calc(polyline_code, '&lt;hotspot name=&quot;' + get(global.polyline_current_name) + '&quot; polyline=&quot;true&quot; borderwidth=&quot;8.0&quot; bordercolor=&quot;0xFF6B00&quot; borderalpha=&quot;0.9&quot; distorted=&quot;true&quot;&gt;');
 		
 		for(set(i, 0), i LT global.polyline_point_count, inc(i),
 			if(hotspot[get(global.polyline_current_name)].point[get(i)].ath != null AND hotspot[get(global.polyline_current_name)].point[get(i)].atv != null,
@@ -149,19 +152,17 @@
 	/>
 
 	<!-- PANEL -->
-	<layer name="polyline_editor_panel" type="container" keep="true" visible="false" align="leftbottom" x="10" y="-10" width="260" height="250" bgcolor="0x333333" bgalpha="0.95" bgroundedge="8" zorder="10000" onclick="" onloaded="init_polyline_editor();">
+	<layer name="polyline_editor_panel" type="container" keep="true" visible="false" align="leftbottom" x="10" y="-10" width="260" height="215" bgcolor="0x333333" bgalpha="0.95" bgroundedge="8" zorder="10000" onclick="" onloaded="init_polyline_editor();">
 		
 		<layer name="polyline_title" type="text" align="top" y="10" width="-20" height="35" html="POLYLINE EDITOR" css="font-family:Arial; font-size:14px; font-weight:bold; color:#FFFFFF; text-align:center;" vcenter="true" />
 		
-		<layer name="polyline_solid_btn" type="text" align="top" y="50" width="-20" height="28" html="SOLID LINE" bgcolor="0x336699" bgalpha="1" bgroundedge="4" css="font-family:Arial; font-size:11px; color:#FFFFFF; text-align:center;" handcursor="true" onclick="set_polyline_style('solid'); set(layer[polyline_solid_btn].bgcolor, 0x336699); set(layer[polyline_dashed_btn].bgcolor, 0x666666);" vcenter="true" />
+		<layer name="polyline_solid_btn" type="text" align="top" y="50" width="-20" height="28" html="LINEA CONTINUA" bgcolor="0x336699" bgalpha="1" bgroundedge="4" css="font-family:Arial; font-size:11px; color:#FFFFFF; text-align:center;" handcursor="false" vcenter="true" />
 		
-		<layer name="polyline_dashed_btn" type="text" align="top" y="82" width="-20" height="28" html="DASHED LINE" bgcolor="0x666666" bgalpha="1" bgroundedge="4" css="font-family:Arial; font-size:11px; color:#FFFFFF; text-align:center;" handcursor="true" onclick="set_polyline_style('dashed'); set(layer[polyline_dashed_btn].bgcolor, 0x336699); set(layer[polyline_solid_btn].bgcolor, 0x666666);" vcenter="true" />
+		<layer name="polyline_start_btn" type="text" align="top" y="85" width="-20" height="28" html="START DRAWING" bgcolor="0x00AA00" bgalpha="1" bgroundedge="4" css="font-family:Arial; font-size:11px; color:#FFFFFF; text-align:center; font-weight:bold;" handcursor="true" onclick="start_polyline_drawing();" vcenter="true" />
 		
-		<layer name="polyline_start_btn" type="text" align="top" y="117" width="-20" height="28" html="START DRAWING" bgcolor="0x00AA00" bgalpha="1" bgroundedge="4" css="font-family:Arial; font-size:11px; color:#FFFFFF; text-align:center; font-weight:bold;" handcursor="true" onclick="start_polyline_drawing();" vcenter="true" />
+		<layer name="polyline_info" type="text" align="top" y="120" width="-20" height="50" html="SPACE: finisci linea&lt;br/&gt;CLICK: aggiungi punto" css="font-family:Arial; font-size:10px; color:#CCCCCC; text-align:center;" bg="false" />
 		
-		<layer name="polyline_info" type="text" align="top" y="152" width="-20" height="50" html="SPACE: finisci linea&lt;br/&gt;CLICK: aggiungi punto" css="font-family:Arial; font-size:10px; color:#CCCCCC; text-align:center;" bg="false" />
-		
-		<layer name="polyline_code_btn" type="text" align="top" y="207" width="-20" height="28" html="SHOW CODE (L)" bgcolor="0x990000" bgalpha="1" bgroundedge="4" css="font-family:Arial; font-size:11px; color:#FFFFFF; text-align:center;" handcursor="true" onclick="show_polyline_code();" vcenter="true" />
+		<layer name="polyline_code_btn" type="text" align="top" y="175" width="-20" height="28" html="SHOW CODE (L)" bgcolor="0x990000" bgalpha="1" bgroundedge="4" css="font-family:Arial; font-size:11px; color:#FFFFFF; text-align:center;" handcursor="true" onclick="show_polyline_code();" vcenter="true" />
 		
 	</layer>
 
