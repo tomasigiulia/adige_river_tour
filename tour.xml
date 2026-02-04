@@ -479,8 +479,8 @@
 		<!-- Etichetta skyline PIANURA -->
 		<hotspot name="skyline_pianura"
 		         style="skyline_label"
-		         ath="8.93"
-		         atv="2.06"
+		         ath="-38.9"
+		         atv="0.92"
 		         html="get(languages[get(language)].skyline_pianura_html)"
 		/>
 		<action name="animate_polyline_label">
